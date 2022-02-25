@@ -22,9 +22,13 @@ var_dump($validator->validate()); // bool
 - `pattern`
 - `min`
 - `max`
+- `equal`
+- `ext`
+- `date`
+- `alpha`
 - `in`
 - `contains`
-- `notContains`
+- `doesntContain`
 - `string`
 - `integer`
 - `double`
@@ -44,9 +48,9 @@ class UserExist extends Rule
 {
     public string $name = 'exist'; // Custom rule name
 
-    public function check(mixed $value): bool
+    public function check(mixed $value, mixed ...$params): bool
     {
-        return DB::exist($value, 'users');
+        return DB::query('SELECT * FROM users WHERE id = ?', $value)->numRows === 0;
     }
 }
 ```
