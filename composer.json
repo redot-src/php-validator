@@ -1,0 +1,10 @@
+{
+    "name": "abdelrhmansaid/validator",
+    "description": "PHP Validator",
+    "keywords": ["validator"],
+    "autoload": {
+        "psr-4": {
+            "Validator\\": ".\\"
+        }
+    }
+}
