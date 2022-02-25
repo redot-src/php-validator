@@ -2,7 +2,7 @@
 
 namespace Validator;
 
-use TypeError;
+use ReflectionClass;
 
 class Validator
 {
@@ -48,28 +48,27 @@ class Validator
 
 
     /**
-     * Validate multiple values
+     * Validate Multiple Entries, $entries should be an assoc array
+     * formated as [string $key => [mixed $value, string $rules]]
      * 
-     * @param array $values
+     * @param array $entries
      * @return array|bool
-     * @throws TypeError
      */
-    public static function validateMultiple(array $values): array|bool
+    public function initMultiple(array $entries): array|bool
     {
         $errors = [];
 
-        foreach ($values as $key => $value) {
-            if (!is_array($value)) throw new TypeError('$values should be assoc array [$key => [$value, $rules]]');
-
-            $validator = static::init($value[0]);
-            $rules = explode('|', $value[1]);
+        foreach ($entries as $key => $entry) {
+            $validator = Validator::init($entry[0]);
+            $rules = explode('|', $entry[1]);
 
             foreach ($rules as $rule) {
                 if (strpos($rule, ':')) $rule = explode(':', $rule);
                 else $rule = [$rule];
 
                 // Chain validations
-                $validator->{$rule[0]}(...array_slice($rule, 1));
+                if (method_exists($validator, $rule[0])) $validator->{$rule[0]}(...array_slice($rule, 1));
+                elseif (class_exists($rule[0])) $validator->rule(new $rule[0], ...array_slice($rule, 1));
             }
 
             if (!$validator->validate()) $errors[$key] = $validator->errors();
@@ -119,14 +118,14 @@ class Validator
     /**
      * Minimum rule
      *
-     * @param float $min
+     * @param $min
      * @return $this
      */
-    public function min(float $min): static
+    public function min($min): static
     {
         if (
             (is_string($this->value) && strlen($this->value) < $min) ||
-            ((is_int($this->value) || strtotime($this->value)) && $this->value < $min)
+            ((is_numeric($this->value) || strtotime($this->value)) && $this->value < $min)
         ) $this->error('min');
         return $this;
     }
@@ -135,15 +134,65 @@ class Validator
     /**
      * Maximum rule
      *
-     * @param float $max
+     * @param $max
      * @return $this
      */
-    public function max(float $max): static
+    public function max($max): static
     {
         if (
             (is_string($this->value) && strlen($this->value) > $max) ||
-            ((is_int($this->value) || strtotime($this->value)) && $this->value > $max)
+            ((is_numeric($this->value) || strtotime($this->value)) && $this->value > $max)
         ) $this->error('max');
+        return $this;
+    }
+
+
+    /**
+     * Equal rule
+     * 
+     * @param mixed $value
+     * @return $this
+     */
+    public function equal(mixed $value): static
+    {
+        if ($this->value !== $value) $this->error($value);
+        return $this;
+    }
+
+
+    /**
+     * Check if the file extension is not same the parameter
+     *
+     * @param string $ext
+     * @return $this
+     */
+    public function ext(string $ext): static
+    {
+        if (strtolower(pathinfo($this->value, PATHINFO_EXTENSION)) !== strtolower($ext)) $this->error('ext');
+        return $this;
+    }
+
+
+    /**
+     * Check if $value is a valid date
+     *
+     * @return $this
+     */
+    public function date(): static
+    {
+        if (strtotime($this->value) === false) $this->error('date');
+        return $this;
+    }
+
+
+    /**
+     * Check if $value is matching alpha pattern
+     * 
+     * @return $this
+     */
+    public function alpah(): static
+    {
+        if (!preg_match("/^([\p{L}]+)$/u", $this->value)) $this->error('alpha');
         return $this;
     }
 
@@ -184,12 +233,12 @@ class Validator
      * @param mixed $needle
      * @return $this
      */
-    public function notContains(mixed $needle): static
+    public function doesntContain(mixed $needle): static
     {
         if (
             (is_array($this->value) && in_array($needle, $this->value)) ||
             (is_string($this->value) && str_contains($this->value, $needle))
-        ) $this->error('notContains');
+        ) $this->error('doesntContain');
         return $this;
     }
 
@@ -258,11 +307,13 @@ class Validator
      * Apply custom rule
      * 
      * @param Rule $rule
+     * @param mixed $params
      * @return $this
      */
-    public function rule(Rule $rule): static
+    public function rule(Rule $rule, mixed ...$params): static
     {
-        if (!$rule->check($this->value)) $this->error($rule->name ?: get_class($rule));
+        $ruleName = $rule->name ?: (new ReflectionClass($rule))->getShortName();
+        if (!$rule->check($this->value, ...$params)) $this->error($ruleName);
         return $this;
     }
 
@@ -298,5 +349,16 @@ class Validator
     public function validate(): bool
     {
         return count($this->errors) === 0;
+    }
+
+
+    /**
+     * Get errors in JSON format
+     * 
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return json_encode($this->errors());
     }
 }

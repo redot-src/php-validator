@@ -17,6 +17,7 @@ abstract class Rule
      * Rule checking function
      * 
      * @param mixed $value
+     * @param mixed $params
      */
-    abstract public function check(mixed $value): bool;
+    abstract public function check(mixed $value, mixed ...$params): bool;
 }
