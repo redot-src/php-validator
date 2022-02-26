@@ -12,7 +12,7 @@ class Validator
      *
      * @var array
      */
-    private array $errors = [];
+    protected array $errors = [];
 
 
     /**
@@ -20,7 +20,7 @@ class Validator
      *
      * @var mixed
      */
-    private mixed $value;
+    protected mixed $value;
 
 
     /**
@@ -324,7 +324,7 @@ class Validator
      * @param string $rule
      * @return void
      */
-    private function error(string $rule): void
+    protected function error(string $rule): void
     {
         $this->errors[$rule] = false;
     }
