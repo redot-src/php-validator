@@ -24,7 +24,7 @@ class Validator
 
 
     /**
-     * Initiate new validator
+     * Validator constructor
      *
      * @param mixed $value
      */
@@ -36,7 +36,7 @@ class Validator
 
 
     /**
-     * Set field name
+     * Initiate new validator
      *
      * @param mixed $value
      * @return Validator
