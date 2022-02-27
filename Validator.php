@@ -58,7 +58,7 @@ class Validator
 
     /**
      * Validate Multiple Entries, $entries should be an assoc array
-     * formated as [string $key => [mixed $value, string $rules]]
+     * formatted as [string $key => [mixed $value, string $rules]]
      * 
      * @param array $entries
      * @return array|bool
@@ -213,7 +213,7 @@ class Validator
      * 
      * @return $this
      */
-    public function alpah(): static
+    public function alpha(): static
     {
         if (!preg_match("/^([\p{L}]+)$/u", $this->value)) $this->error('alpha');
         return $this;
@@ -251,7 +251,7 @@ class Validator
 
 
     /**
-     * Check if $value doesn't contains specific $needle
+     * Check if $value doesn't contain specific $needle
      * 
      * @param mixed $needle
      * @return $this
@@ -271,7 +271,7 @@ class Validator
      * 
      * @return $this
      */
-    public function string()
+    public function string(): static
     {
         if (gettype($this->value) !== 'string') $this->error('string');
         return $this;
@@ -283,7 +283,7 @@ class Validator
      * 
      * @return $this
      */
-    public function integer()
+    public function integer(): static
     {
         if (gettype($this->value) !== 'integer') $this->error('integer');
         return $this;
@@ -295,7 +295,7 @@ class Validator
      * 
      * @return $this
      */
-    public function double()
+    public function double(): static
     {
         if (gettype($this->value) !== 'double') $this->error('double');
         return $this;
@@ -307,7 +307,7 @@ class Validator
      * 
      * @return $this
      */
-    public function array()
+    public function array(): static
     {
         if (gettype($this->value) !== 'array') $this->error('array');
         return $this;
@@ -319,7 +319,7 @@ class Validator
      * 
      * @return $this
      */
-    public function object()
+    public function object(): static
     {
         if (gettype($this->value) !== 'object') $this->error('object');
         return $this;
@@ -328,11 +328,10 @@ class Validator
 
     /**
      * Apply custom rule
-     * 
-     * @param string $rule
+     *
+     * @param string $name
      * @param mixed $params
      * @return $this
-     * @throws BadMethodCallException
      */
     public function rule(string $name, mixed ...$params): static
     {

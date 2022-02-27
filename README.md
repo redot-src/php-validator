@@ -1,6 +1,6 @@
 # PHP Validator
 
-*Validation framework that let's you configure, rather than code, your validation logic.*
+*Validation framework that let you configure, rather than code, your validation logic.*
 
 Usage example:
 
@@ -35,7 +35,7 @@ var_dump($validator->validate()); // bool
 - `array`
 - `object`
 
-Also you can create your specific rule by extending `Rule` class
+Also, you can create your specific rule by extending `Rule` class
 
 ## Create Rule
 
