@@ -11,7 +11,7 @@ $errors = Validator::init($email)->required()->email()->errors(); // array
 $validator = new Validator($email);
 $validator->required()->email();
 
-print_r($validator->errors()); // array
+var_dump($validator->errors()); // array
 var_dump($validator->validate()); // bool
 ```
 
@@ -26,7 +26,7 @@ var_dump($validator->validate()); // bool
 - `ext`
 - `date`
 - `alpha`
-- `in`
+- `between`
 - `contains`
 - `doesntContain`
 - `string`
@@ -44,6 +44,7 @@ You can create any rule by extending `Rule` class, and write your custom validat
 Example:
 
 ```php
+// Create new Rule
 class UserExist extends Rule
 {
     public string $name = 'exist'; // Custom rule name
@@ -53,8 +54,16 @@ class UserExist extends Rule
         return DB::query('SELECT * FROM users WHERE id = ?', $value)->numRows === 0;
     }
 }
+
+// Register custom rule
+Validator::register(UserExist::class);
+
+// Use custom rule
+Validator::init($userId)->rule('exist')->errors(); // array
 ```
 
 ## Get Validation result
 
-If you just want to know if `$value` is valid or not, Just use `$validator->validate()` method, On the other hand if you would like to get all errors you can use `$validator->errors()` method that will return an assoc array where `$key` is the rule name, and `$value` is false by default.
+If you just want to know if `$value` is valid or not, You can use `$validator->validate()` method,
+On the other hand if you want to get all validation errors, you can use `$validator->errors()` method
+that will return an array contains all validation failures.

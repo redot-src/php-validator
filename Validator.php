@@ -2,10 +2,19 @@
 
 namespace Validator;
 
+use BadMethodCallException;
 use ReflectionClass;
 
 class Validator
 {
+
+    /**
+     * Array holding registered rules
+     * 
+     * @var array
+     */
+    public static array $rules = [];
+
 
     /**
      * Array holding validation failures
@@ -54,7 +63,7 @@ class Validator
      * @param array $entries
      * @return array|bool
      */
-    public function initMultiple(array $entries): array|bool
+    public static function initMultiple(array $entries): array|bool
     {
         $errors = [];
 
@@ -68,13 +77,27 @@ class Validator
 
                 // Chain validations
                 if (method_exists($validator, $rule[0])) $validator->{$rule[0]}(...array_slice($rule, 1));
-                elseif (class_exists($rule[0])) $validator->rule(new $rule[0], ...array_slice($rule, 1));
+                else $validator->rule($rule[0], ...array_slice($rule, 1));
             }
 
             if (!$validator->validate()) $errors[$key] = $validator->errors();
         }
 
         return $errors ?: true;
+    }
+
+
+    /**
+     * Register custom rule
+     * 
+     * @param string $rule
+     * @return void
+     */
+    public static function register(string $rule): void
+    {
+        $rule = new $rule;
+        $rule->name = $rule->name ?: self::getRuleName($rule);
+        self::$rules[$rule->name] = $rule;
     }
 
 
@@ -204,7 +227,7 @@ class Validator
      * @param float $end
      * @return $this
      */
-    public function in(float $start, float $end): static
+    public function between(float $start, float $end): static
     {
         if ($this->value >= $start && $this->value <= $end) $this->error('in');
         return $this;
@@ -306,15 +329,32 @@ class Validator
     /**
      * Apply custom rule
      * 
-     * @param Rule $rule
+     * @param string $rule
      * @param mixed $params
      * @return $this
+     * @throws BadMethodCallException
      */
-    public function rule(Rule $rule, mixed ...$params): static
+    public function rule(string $name, mixed ...$params): static
     {
-        $ruleName = $rule->name ?: (new ReflectionClass($rule))->getShortName();
-        if (!$rule->check($this->value, ...$params)) $this->error($ruleName);
+        $rule = self::$rules[$name];
+
+        // Handle undeclared rule
+        if (!$rule) throw new BadMethodCallException("Cannot find validation rule: $rule");
+
+        if (!$rule->check($this->value, ...$params)) $this->error($name);
         return $this;
+    }
+
+
+    /**
+     * Get rule name
+     * 
+     * @param Rule $rule
+     * @return string
+     */
+    private static function getRuleName(Rule $rule): string
+    {
+        return (new ReflectionClass($rule))->getShortName();
     }
 
 
@@ -337,7 +377,7 @@ class Validator
      */
     public function errors(): array
     {
-        return $this->errors;
+        return array_keys($this->errors);
     }
 
 
