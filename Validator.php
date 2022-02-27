@@ -105,9 +105,22 @@ class Validator
 
 
     /**
+     * Change Validator value
+     *
+     * @param mixed $value
+     * @return static
+     */
+    public function value(mixed $value): static
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+
+    /**
      * Required rule
      *
-     * @return $this
+     * @return static
      */
     public function required(): static
     {
@@ -119,7 +132,7 @@ class Validator
     /**
      * Email rule
      *
-     * @return $this
+     * @return static
      */
     public function email(): static
     {
@@ -132,7 +145,7 @@ class Validator
      * Regex pattern rule
      *
      * @param string $pattern
-     * @return $this
+     * @return static
      */
     public function pattern(string $pattern): static
     {
@@ -145,7 +158,7 @@ class Validator
      * Minimum rule
      *
      * @param $min
-     * @return $this
+     * @return static
      */
     public function min($min): static
     {
@@ -161,7 +174,7 @@ class Validator
      * Maximum rule
      *
      * @param $max
-     * @return $this
+     * @return static
      */
     public function max($max): static
     {
@@ -177,7 +190,7 @@ class Validator
      * Equal rule
      *
      * @param mixed $value
-     * @return $this
+     * @return static
      */
     public function equal(mixed $value): static
     {
@@ -190,7 +203,7 @@ class Validator
      * Check if the file extension is not same the parameter
      *
      * @param string $ext
-     * @return $this
+     * @return static
      */
     public function ext(string $ext): static
     {
@@ -202,7 +215,7 @@ class Validator
     /**
      * Check if $value is a valid date
      *
-     * @return $this
+     * @return static
      */
     public function date(): static
     {
@@ -214,7 +227,7 @@ class Validator
     /**
      * Check if $value is matching alpha pattern
      *
-     * @return $this
+     * @return static
      */
     public function alpha(): static
     {
@@ -228,7 +241,7 @@ class Validator
      *
      * @param float $start
      * @param float $end
-     * @return $this
+     * @return static
      */
     public function between(float $start, float $end): static
     {
@@ -241,7 +254,7 @@ class Validator
      * Check if $value contains specific $needle
      *
      * @param mixed $needle
-     * @return $this
+     * @return static
      */
     public function contains(mixed $needle): static
     {
@@ -257,7 +270,7 @@ class Validator
      * Check if $value doesn't contain specific $needle
      *
      * @param mixed $needle
-     * @return $this
+     * @return static
      */
     public function doesntContain(mixed $needle): static
     {
@@ -272,7 +285,7 @@ class Validator
     /**
      * String rule
      *
-     * @return $this
+     * @return static
      */
     public function string(): static
     {
@@ -284,7 +297,7 @@ class Validator
     /**
      * Integer rule
      *
-     * @return $this
+     * @return static
      */
     public function integer(): static
     {
@@ -296,7 +309,7 @@ class Validator
     /**
      * Double rule
      *
-     * @return $this
+     * @return static
      */
     public function double(): static
     {
@@ -308,7 +321,7 @@ class Validator
     /**
      * Array rule
      *
-     * @return $this
+     * @return static
      */
     public function array(): static
     {
@@ -320,7 +333,7 @@ class Validator
     /**
      * Object rule
      *
-     * @return $this
+     * @return static
      */
     public function object(): static
     {
@@ -334,7 +347,7 @@ class Validator
      *
      * @param string $name
      * @param mixed $params
-     * @return $this
+     * @return static
      */
     public function rule(string $name, mixed ...$params): static
     {
