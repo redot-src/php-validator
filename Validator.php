@@ -3,6 +3,7 @@
 namespace Validator;
 
 use BadMethodCallException;
+use JetBrains\PhpStorm\Pure;
 use ReflectionClass;
 
 class Validator
@@ -10,7 +11,7 @@ class Validator
 
     /**
      * Array holding registered rules
-     * 
+     *
      * @var array
      */
     public static array $rules = [];
@@ -50,6 +51,7 @@ class Validator
      * @param mixed $value
      * @return Validator
      */
+    #[Pure]
     public static function init(mixed $value): static
     {
         return new static($value);
@@ -59,17 +61,18 @@ class Validator
     /**
      * Validate Multiple Entries, $entries should be an assoc array
      * formatted as [string $key => [mixed $value, string $rules]]
-     * 
+     *
+     * @param array $values
      * @param array $entries
      * @return array|bool
      */
-    public static function initMultiple(array $entries): array|bool
+    public static function initMultiple(array $values, array $entries): array|bool
     {
         $errors = [];
 
         foreach ($entries as $key => $entry) {
-            $validator = Validator::init($entry[0]);
-            $rules = explode('|', $entry[1]);
+            $validator = Validator::init($values[$key]);
+            $rules = explode('|', $entry);
 
             foreach ($rules as $rule) {
                 if (strpos($rule, ':')) $rule = explode(':', $rule);
@@ -89,7 +92,7 @@ class Validator
 
     /**
      * Register custom rule
-     * 
+     *
      * @param string $rule
      * @return void
      */
@@ -172,7 +175,7 @@ class Validator
 
     /**
      * Equal rule
-     * 
+     *
      * @param mixed $value
      * @return $this
      */
@@ -210,7 +213,7 @@ class Validator
 
     /**
      * Check if $value is matching alpha pattern
-     * 
+     *
      * @return $this
      */
     public function alpha(): static
@@ -222,7 +225,7 @@ class Validator
 
     /**
      * Check if $value between $start and $end
-     * 
+     *
      * @param float $start
      * @param float $end
      * @return $this
@@ -236,7 +239,7 @@ class Validator
 
     /**
      * Check if $value contains specific $needle
-     * 
+     *
      * @param mixed $needle
      * @return $this
      */
@@ -252,7 +255,7 @@ class Validator
 
     /**
      * Check if $value doesn't contain specific $needle
-     * 
+     *
      * @param mixed $needle
      * @return $this
      */
@@ -268,7 +271,7 @@ class Validator
 
     /**
      * String rule
-     * 
+     *
      * @return $this
      */
     public function string(): static
@@ -280,7 +283,7 @@ class Validator
 
     /**
      * Integer rule
-     * 
+     *
      * @return $this
      */
     public function integer(): static
@@ -292,7 +295,7 @@ class Validator
 
     /**
      * Double rule
-     * 
+     *
      * @return $this
      */
     public function double(): static
@@ -304,7 +307,7 @@ class Validator
 
     /**
      * Array rule
-     * 
+     *
      * @return $this
      */
     public function array(): static
@@ -316,7 +319,7 @@ class Validator
 
     /**
      * Object rule
-     * 
+     *
      * @return $this
      */
     public function object(): static
@@ -347,7 +350,7 @@ class Validator
 
     /**
      * Get rule name
-     * 
+     *
      * @param Rule $rule
      * @return string
      */
@@ -393,7 +396,7 @@ class Validator
 
     /**
      * Get errors in JSON format
-     * 
+     *
      * @return string
      */
     public function __toString(): string
