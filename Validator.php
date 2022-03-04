@@ -59,8 +59,7 @@ class Validator
 
 
     /**
-     * Validate Multiple Entries, $entries should be an assoc array
-     * formatted as [string $key => [mixed $value, string $rules]]
+     * Validate Multiple Entries
      *
      * @param array $values
      * @param array $entries
