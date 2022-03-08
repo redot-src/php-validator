@@ -419,7 +419,7 @@ class Validator
 
     /**
      * Handles: direct call a registered rule
-     * 
+     *
      * @param string $name
      * @param array $args
      * @return static
