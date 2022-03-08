@@ -415,4 +415,17 @@ class Validator
     {
         return json_encode($this->errors());
     }
+
+
+    /**
+     * Handles: direct call a registered rule
+     * 
+     * @param string $name
+     * @param array $args
+     * @return static
+     */
+    public function __call(string $name, array $args = []): static
+    {
+        return $this->rule($name, ...$args);
+    }
 }
