@@ -353,7 +353,7 @@ class Validator
         $rule = self::$rules[$name];
 
         // Handle undeclared rule
-        if (!$rule) throw new BadMethodCallException("Cannot find validation rule: $rule");
+        if (!$rule) throw new BadMethodCallException("Cannot find validation rule: $name");
 
         if (!$rule->check($this->value, ...$params)) $this->error($name);
         return $this;
