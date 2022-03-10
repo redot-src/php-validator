@@ -2,7 +2,12 @@
 
 *Validation framework that let you configure, rather than code, your validation logic.*
 
-Usage example:
+## Installation:
+```sh
+composer require abdelrhmansaid/validator
+```
+
+## Usage:
 
 ```php
 $errors = Validator::init($email)->required()->email()->errors(); // array
@@ -13,6 +18,11 @@ $validator->required()->email();
 
 var_dump($validator->errors()); // array
 var_dump($validator->validate()); // bool
+
+// Also you can validate multiple values
+Validator::initMultiple($_POST, [
+    'email' => 'required|email',
+]);
 ```
 
 ## Default Validators
