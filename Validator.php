@@ -244,7 +244,7 @@ class Validator
      */
     public function between(float $start, float $end): static
     {
-        if ($this->value >= $start && $this->value <= $end) $this->error('in');
+        if ($this->value >= $start && $this->value <= $end) $this->error('between');
         return $this;
     }
 
