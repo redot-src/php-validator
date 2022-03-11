@@ -1,6 +1,7 @@
 {
     "name": "abdelrhmansaid/validator",
     "description": "PHP Validator",
+    "license": "MIT",
     "keywords": ["validator"],
     "autoload": {
         "psr-4": {
