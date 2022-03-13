@@ -1,11 +1,26 @@
 {
     "name": "abdelrhmansaid/validator",
+    "version": "0.0.1",
     "description": "PHP Validator",
     "license": "MIT",
-    "keywords": ["validator"],
+    "support": {
+        "issues": "https://github.com/AbdelrhmanSaid/php-validator/issues",
+        "source": "https://github.com/AbdelrhmanSaid/php-validator"
+    },
+    "keywords": [
+        "validator"
+    ],
     "autoload": {
         "psr-4": {
-            "Validator\\": ".\\"
+            "Validator\\": "./src"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
         }
     }
 }

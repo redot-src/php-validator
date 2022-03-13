@@ -245,7 +245,7 @@ class Validator
      */
     public function between(float $start, float $end): static
     {
-        if ($this->value >= $start && $this->value <= $end) $this->error('between');
+        if ($this->value < $start || $this->value > $end) $this->error('between');
         return $this;
     }
 
@@ -343,6 +343,30 @@ class Validator
 
 
     /**
+     * Check if value is truthy
+     * 
+     * @return static
+     */
+    public function truthy(): static
+    {
+        if (!$this->value) $this->error('truthy');
+        return $this;
+    }
+
+
+    /**
+     * Check if value is falsy
+     * 
+     * @return static
+     */
+    public function falsy(): static
+    {
+        if ($this->value) $this->error('falsy');
+        return $this;
+    }
+
+
+    /**
      * Apply custom rule
      *
      * @param string $name
@@ -397,7 +421,7 @@ class Validator
 
 
     /**
-     * Clear failures.
+     * Clear failures
      * 
      * @return void
      */
