@@ -189,11 +189,12 @@ class Validator
      * Equal rule
      *
      * @param mixed $value
+     * @param bool $strict
      * @return static
      */
-    public function equal(mixed $value): static
+    public function equal(mixed $value, bool $strict = true): static
     {
-        if ($this->value !== $value) $this->error($value);
+        if (($strict && $this->value !== $value) || $this->value != $value) $this->error($value);
         return $this;
     }
 
@@ -392,6 +393,17 @@ class Validator
     public function errors(): array
     {
         return array_keys($this->errors);
+    }
+
+
+    /**
+     * Clear failures.
+     * 
+     * @return void
+     */
+    public function clear(): void
+    {
+        $this->errors = [];
     }
 
 
