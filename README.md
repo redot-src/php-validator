@@ -44,6 +44,8 @@ Validator::initMultiple($_POST, [
 - `double`
 - `array`
 - `object`
+- `truthy`
+- `falsy`
 
 Also, you can create your specific rule by extending `Rule` class
 
