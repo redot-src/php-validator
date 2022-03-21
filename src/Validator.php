@@ -78,8 +78,7 @@ class Validator
                 else $rule = [$rule];
 
                 // Chain validations
-                if (method_exists($validator, $rule[0])) $validator->{$rule[0]}(...array_slice($rule, 1));
-                else $validator->rule($rule[0], ...array_slice($rule, 1));
+                $validator->{$rule[0]}(...explode(',', $rule[1] ?? []));
             }
 
             if (!$validator->validate()) $errors[$key] = $validator->errors();

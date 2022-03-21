@@ -21,7 +21,7 @@ var_dump($validator->validate()); // bool
 
 // Also you can validate multiple values
 Validator::initMultiple($_POST, [
-    'email' => 'required|email',
+    'email' => 'required|email|unique:users,email',
 ]);
 ```
 
