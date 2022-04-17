@@ -7,6 +7,12 @@
 composer require abdelrhmansaid/validator
 ```
 
+## Testing:
+
+```sh
+composer test
+```
+
 ## Usage:
 
 ```php
@@ -25,7 +31,7 @@ Validator::initMultiple($_POST, [
 ]);
 ```
 
-## Default Validators
+## Default Validators:
 
 - `required`
 - `email`
@@ -49,7 +55,7 @@ Validator::initMultiple($_POST, [
 
 Also, you can create your specific rule by extending `Rule` class
 
-## Create Rule
+## Create Rule:
 
 You can create any rule by extending `Rule` class, and write your custom validation code under `check` method
 
@@ -74,7 +80,7 @@ Validator::register(UserExist::class);
 Validator::init($userId)->rule('exist')->errors(); // array
 ```
 
-## Get Validation result
+## Get Validation result:
 
 If you just want to know if `$value` is valid or not, You can use `$validator->validate()` method,
 On the other hand if you want to get all validation errors, you can use `$validator->errors()` method

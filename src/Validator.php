@@ -2,20 +2,18 @@
 
 namespace Validator;
 
+use ReflectionClass;
 use BadMethodCallException;
 use JetBrains\PhpStorm\Pure;
-use ReflectionClass;
 
 class Validator
 {
-
     /**
      * Array holding registered rules
      *
      * @var array
      */
     public static array $rules = [];
-
 
     /**
      * Array holding validation failures
@@ -24,14 +22,12 @@ class Validator
      */
     protected array $errors = [];
 
-
     /**
      * Variable contains field value
      *
      * @var mixed
      */
     protected mixed $value;
-
 
     /**
      * Validator constructor
@@ -44,19 +40,16 @@ class Validator
         return $this;
     }
 
-
     /**
      * Initiate new validator
      *
      * @param mixed $value
      * @return Validator
      */
-    #[Pure]
-    public static function init(mixed $value): static
+    #[Pure] public static function init(mixed $value): static
     {
         return new static($value);
     }
-
 
     /**
      * Validate Multiple Entries
@@ -87,7 +80,6 @@ class Validator
         return $errors ?: true;
     }
 
-
     /**
      * Register custom rule
      *
@@ -101,7 +93,6 @@ class Validator
         self::$rules[$rule->name] = $rule;
     }
 
-
     /**
      * Change Validator value
      *
@@ -114,7 +105,6 @@ class Validator
         return $this;
     }
 
-
     /**
      * Required rule
      *
@@ -122,10 +112,9 @@ class Validator
      */
     public function required(): static
     {
-        if (empty($this->value)) $this->error('required');
+        if (empty($this->value)) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Email rule
@@ -134,10 +123,9 @@ class Validator
      */
     public function email(): static
     {
-        if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) $this->error('email');
+        if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Regex pattern rule
@@ -147,10 +135,9 @@ class Validator
      */
     public function pattern(string $pattern): static
     {
-        if (!preg_match($pattern, $this->value)) $this->error('pattern');
+        if (!preg_match($pattern, $this->value)) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Minimum rule
@@ -163,10 +150,9 @@ class Validator
         if (
             (is_string($this->value) && strlen($this->value) < $min) ||
             ((is_numeric($this->value) || strtotime($this->value)) && $this->value < $min)
-        ) $this->error('min');
+        ) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Maximum rule
@@ -179,10 +165,9 @@ class Validator
         if (
             (is_string($this->value) && strlen($this->value) > $max) ||
             ((is_numeric($this->value) || strtotime($this->value)) && $this->value > $max)
-        ) $this->error('max');
+        ) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Equal rule
@@ -193,10 +178,9 @@ class Validator
      */
     public function equal(mixed $value, bool $strict = true): static
     {
-        if (($strict && $this->value !== $value) || $this->value != $value) $this->error($value);
+        if (($strict && $this->value !== $value) || $this->value != $value) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if the file extension is not same the parameter
@@ -206,10 +190,9 @@ class Validator
      */
     public function ext(string $ext): static
     {
-        if (strtolower(pathinfo($this->value, PATHINFO_EXTENSION)) !== strtolower($ext)) $this->error('ext');
+        if (strtolower(pathinfo($this->value, PATHINFO_EXTENSION)) !== strtolower($ext)) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if $value is a valid date
@@ -218,10 +201,9 @@ class Validator
      */
     public function date(): static
     {
-        if (strtotime($this->value) === false) $this->error('date');
+        if (strtotime($this->value) === false) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if $value is matching alpha pattern
@@ -230,10 +212,9 @@ class Validator
      */
     public function alpha(): static
     {
-        if (!preg_match("/^([\p{L}]+)$/u", $this->value)) $this->error('alpha');
+        if (!preg_match("/^([\p{L}]+)$/u", $this->value)) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if $value between $start and $end
@@ -244,10 +225,9 @@ class Validator
      */
     public function between(float $start, float $end): static
     {
-        if ($this->value < $start || $this->value > $end) $this->error('between');
+        if ($this->value < $start || $this->value > $end) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if $value contains specific $needle
@@ -260,10 +240,9 @@ class Validator
         if (
             (is_array($this->value) && !in_array($needle, $this->value)) ||
             (is_string($this->value) && !str_contains($this->value, $needle))
-        ) $this->error('contains');
+        ) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if $value doesn't contain specific $needle
@@ -276,10 +255,9 @@ class Validator
         if (
             (is_array($this->value) && in_array($needle, $this->value)) ||
             (is_string($this->value) && str_contains($this->value, $needle))
-        ) $this->error('doesntContain');
+        ) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * String rule
@@ -288,10 +266,9 @@ class Validator
      */
     public function string(): static
     {
-        if (gettype($this->value) !== 'string') $this->error('string');
+        if (gettype($this->value) !== 'string') $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Integer rule
@@ -300,10 +277,9 @@ class Validator
      */
     public function integer(): static
     {
-        if (gettype($this->value) !== 'integer') $this->error('integer');
+        if (gettype($this->value) !== 'integer') $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Double rule
@@ -312,10 +288,9 @@ class Validator
      */
     public function double(): static
     {
-        if (gettype($this->value) !== 'double') $this->error('double');
+        if (gettype($this->value) !== 'double') $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Array rule
@@ -324,10 +299,9 @@ class Validator
      */
     public function array(): static
     {
-        if (gettype($this->value) !== 'array') $this->error('array');
+        if (gettype($this->value) !== 'array') $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Object rule
@@ -336,10 +310,9 @@ class Validator
      */
     public function object(): static
     {
-        if (gettype($this->value) !== 'object') $this->error('object');
+        if (gettype($this->value) !== 'object') $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if value is truthy
@@ -348,10 +321,9 @@ class Validator
      */
     public function truthy(): static
     {
-        if (!$this->value) $this->error('truthy');
+        if (!$this->value) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Check if value is falsy
@@ -360,10 +332,9 @@ class Validator
      */
     public function falsy(): static
     {
-        if ($this->value) $this->error('falsy');
+        if ($this->value) $this->error(__FUNCTION__);
         return $this;
     }
-
 
     /**
      * Apply custom rule
@@ -375,14 +346,10 @@ class Validator
     public function rule(string $name, mixed ...$params): static
     {
         $rule = self::$rules[$name];
-
-        // Handle undeclared rule
         if (!$rule) throw new BadMethodCallException("Cannot find validation rule: $name");
-
         if (!$rule->check($this->value, ...$params)) $this->error($name);
         return $this;
     }
-
 
     /**
      * Get rule name
@@ -395,7 +362,6 @@ class Validator
         return (new ReflectionClass($rule))->getShortName();
     }
 
-
     /**
      * Add validation failure
      *
@@ -407,7 +373,6 @@ class Validator
         $this->errors[$rule] = false;
     }
 
-
     /**
      * Get validation failures
      *
@@ -417,7 +382,6 @@ class Validator
     {
         return array_keys($this->errors);
     }
-
 
     /**
      * Clear failures
@@ -429,7 +393,6 @@ class Validator
         $this->errors = [];
     }
 
-
     /**
      * Get validation result
      *
@@ -440,7 +403,6 @@ class Validator
         return count($this->errors) === 0;
     }
 
-
     /**
      * Get errors in JSON format
      *
@@ -450,7 +412,6 @@ class Validator
     {
         return json_encode($this->errors());
     }
-
 
     /**
      * Handles: direct call a registered rule
