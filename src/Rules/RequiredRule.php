@@ -4,7 +4,7 @@ namespace Validator\Rules;
 
 use Validator\Contracts\Rule;
 
-class Required implements Rule
+class RequiredRule implements Rule
 {
     /**
      * Rule name.
