@@ -7,9 +7,7 @@
         "issues": "https://github.com/AbdelrhmanSaid/php-validator/issues",
         "source": "https://github.com/AbdelrhmanSaid/php-validator"
     },
-    "keywords": [
-        "validator"
-    ],
+    "keywords": ["validator"],
     "autoload": {
         "psr-4": {
             "Validator\\": "./src"
