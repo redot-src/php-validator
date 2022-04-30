@@ -37,6 +37,6 @@ class PatternRule extends AbstractRule
             throw new ArgumentCountError('Pattern rule requires at least one parameter.');
         }
 
-        return preg_match($params[0], $value) !== false;
+        return (bool) preg_match($params[0], $value);
     }
 }
