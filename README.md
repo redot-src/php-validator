@@ -56,13 +56,13 @@ if (count($errors)) {
 
 ## Registering rules
 
-Validator by default came without any registered rules. You can add them by using the `Validator::addRule()` method.
+Validator by default came without any registered rules. You can add them by using the `Validator::registerRule()` method.
 
 ```php
 
 use Validator\Rules\RequiredRule;
 
-Validator::addRule(RequiredRule::class);
+Validator::registerRule(RequiredRule::class);
 
 ```
 
