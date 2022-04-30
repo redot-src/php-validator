@@ -99,9 +99,10 @@ class Validator implements ValidatorContract
      * Register a rule to validator.
      *
      * @param string $rule
+     * @param bool $override
      * @return void
      */
-    public static function registerRule(string $rule): void
+    public static function registerRule(string $rule, bool $override = false): void
     {
         $obj = new $rule;
 
@@ -110,7 +111,7 @@ class Validator implements ValidatorContract
         }
 
         $name = $obj->getName();
-        if (isset(static::$rules[$name])) {
+        if (isset(static::$rules[$name]) && !$override) {
             throw new DuplicateRuleException("Rule [$rule] already registered.");
         }
 
