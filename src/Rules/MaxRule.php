@@ -10,7 +10,7 @@ class MaxRule extends AbstractRule
     /**
      * {@inheritdoc}
      */
-    protected string $message = 'Value doesn\'t meet the maximum length of {0}.';
+    protected string $message = 'Value does not meet the maximum length of {0}.';
 
     /**
      * Rule name.
