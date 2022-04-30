@@ -32,6 +32,8 @@ class EqualRule implements Rule
      * 
      * @param mixed $value
      * @param mixed $params
+     *
+     * @throws ArgumentCountError
      */
     public function validate($value, ...$params): bool
     {

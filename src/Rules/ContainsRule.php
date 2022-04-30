@@ -2,6 +2,7 @@
 
 namespace Validator\Rules;
 
+use ArgumentCountError;
 use Validator\Contracts\Rule;
 
 class ContainsRule implements Rule
@@ -31,21 +32,29 @@ class ContainsRule implements Rule
      * 
      * @param mixed $value
      * @param mixed $params
+     *
+     * @throws ArgumentCountError
      */
     public function validate($value, ...$params): bool
     {
-        if (is_string($value)) {
-            return str_contains($value, $params[0]) !== false;
+        if (count($params) < 1) {
+            throw new ArgumentCountError('Contain rule requires at least one parameter.');
         }
 
-        if (is_array($value)) {
-            return in_array($params[0], $value);
-        }
+        foreach ($params as $param) {
+            if (is_string($value)) {
+                return str_contains($value, $param);
+            }
 
-        if (is_object($value)) {
-            return property_exists($value, $params[0]);
-        }
+            if (is_array($value)) {
+                return in_array($param, $value);
+            }
 
-        return false;
+            if (is_object($value)) {
+                return property_exists($value, $param);
+            }
+
+            return false;
+        }
     }
 }

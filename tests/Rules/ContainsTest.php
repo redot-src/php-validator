@@ -3,7 +3,7 @@
 use Validator\Validator;
 
 test('Contains: valid case (string)', function () {
-    expect(Validator::init('abc')->contains('a')->validate())->toBe(true);
+    expect(Validator::init('abc')->contains('a', 'b')->validate())->toBe(true);
 });
 
 test('Contains: invalid case (string)', function () {
