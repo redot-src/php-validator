@@ -7,6 +7,7 @@ $baseRules = [
     \Validator\Rules\BetweenRule::class,
     \Validator\Rules\ContainsRule::class,
     \Validator\Rules\DoesntContainRule::class,
+    \Validator\Rules\EachRule::class,
     \Validator\Rules\EmailRule::class,
     \Validator\Rules\EqualRule::class,
     \Validator\Rules\IsDateRule::class,
