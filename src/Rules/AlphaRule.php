@@ -2,10 +2,15 @@
 
 namespace Validator\Rules;
 
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class AlphaRule implements Rule
+class AlphaRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value is not a valid alpha.';
+
     /**
      * Rule name.
      * 
@@ -14,16 +19,6 @@ class AlphaRule implements Rule
     public function getName(): string
     {
         return 'alpha';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value is not a valid alpha.';
     }
 
     /**

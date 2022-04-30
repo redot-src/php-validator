@@ -3,10 +3,15 @@
 namespace Validator\Rules;
 
 use ArgumentCountError;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class EqualRule implements Rule
+class EqualRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value should be equal to {0}.';
+
     /**
      * Rule name.
      * 
@@ -15,16 +20,6 @@ class EqualRule implements Rule
     public function getName(): string
     {
         return 'equal';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value should be equal to {0}.';
     }
 
     /**

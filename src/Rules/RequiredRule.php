@@ -2,10 +2,15 @@
 
 namespace Validator\Rules;
 
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class RequiredRule implements Rule
+class RequiredRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value is required.';
+
     /**
      * Rule name.
      * 
@@ -14,16 +19,6 @@ class RequiredRule implements Rule
     public function getName(): string
     {
         return 'required';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value is required.';
     }
 
     /**

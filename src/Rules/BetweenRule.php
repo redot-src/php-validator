@@ -2,10 +2,15 @@
 
 namespace Validator\Rules;
 
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class BetweenRule implements Rule
+class BetweenRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value is not between {0} and {1}.';
+
     /**
      * Rule name.
      * 
@@ -14,16 +19,6 @@ class BetweenRule implements Rule
     public function getName(): string
     {
         return 'between';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value is not between {0} and {1}.';
     }
 
     /**

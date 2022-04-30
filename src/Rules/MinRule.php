@@ -3,10 +3,15 @@
 namespace Validator\Rules;
 
 use ArgumentCountError;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class MinRule implements Rule
+class MinRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value doesn\'t meet the minimum length of {0}.';
+
     /**
      * Rule name.
      * 
@@ -15,16 +20,6 @@ class MinRule implements Rule
     public function getName(): string
     {
         return 'min';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value doesn\'t meet the minimum length of {0}.';
     }
 
     /**

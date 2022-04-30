@@ -1,20 +1,17 @@
 <?php
 
 use Validator\Validator;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 use Validator\Errors\InvalidRuleException;
 use Validator\Errors\DuplicateRuleException;
 
-class EqualsOne implements Rule
+class EqualsOne extends AbstractRule
 {
+    protected string $message = 'Value should be equal to 1.';
+
     public function getName(): string
     {
         return 'equalsOne';
-    }
-
-    public function getMessage(): string
-    {
-        return 'The value must be equal to one.';
     }
 
     public function validate(mixed $value, mixed ...$params): bool
@@ -52,4 +49,14 @@ it('can validate multiple values', function () {
     $entries = ['email' => 'test@vendor.com'];
     $validations = ['email' => 'required|email|min:5|max:255'];
     expect(Validator::initMultiple($entries, $validations))->toBe(true);
+});
+
+it('can change the default error message', function () {
+    Validator::setMessages([EqualsOne::class => 'test']);
+    expect(Validator::init(2)->equalsOne()->getErrors())
+        ->toBe(['equalsOne' => 'test']);
+
+    Validator::setMessages(['equalsOne' => 'test2']);
+    expect(Validator::init(2)->equalsOne()->getErrors())
+        ->toBe(['equalsOne' => 'test2']);
 });

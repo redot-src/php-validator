@@ -3,10 +3,15 @@
 namespace Validator\Rules;
 
 use ArgumentCountError;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class ContainsRule implements Rule
+class ContainsRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value does not contain {0}.';
+
     /**
      * Rule name.
      * 
@@ -15,16 +20,6 @@ class ContainsRule implements Rule
     public function getName(): string
     {
         return 'contains';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value does not contain {0}.';
     }
 
     /**

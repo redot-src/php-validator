@@ -3,10 +3,15 @@
 namespace Validator\Rules;
 
 use ArgumentCountError;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class MaxRule implements Rule
+class MaxRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value doesn\'t meet the maximum length of {0}.';
+
     /**
      * Rule name.
      * 
@@ -15,16 +20,6 @@ class MaxRule implements Rule
     public function getName(): string
     {
         return 'max';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value doesn\'t meet the maximum length of {0}.';
     }
 
     /**

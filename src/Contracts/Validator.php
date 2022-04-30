@@ -65,4 +65,12 @@ interface Validator
      * @return void
      */
     public function clearErrors(): void;
+
+    /**
+     * Change default error messages.
+     *
+     * @param array $messages
+     * @return void
+     */
+    public static function setMessages(array $messages): void;
 }

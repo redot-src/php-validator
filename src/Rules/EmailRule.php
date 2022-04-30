@@ -2,10 +2,15 @@
 
 namespace Validator\Rules;
 
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class EmailRule implements Rule
+class EmailRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value is not a valid email address.';
+
     /**
      * Rule name.
      * 
@@ -14,16 +19,6 @@ class EmailRule implements Rule
     public function getName(): string
     {
         return 'email';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value is not a valid email address.';
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Validator;
 
-use Validator\Contracts\Rule;
 use Validator\Contracts\Validator as ValidatorContract;
 use Validator\Errors\{
     DuplicateRuleException,
@@ -113,8 +112,8 @@ class Validator implements ValidatorContract
     {
         $obj = new $rule;
 
-        if (!$obj instanceof Rule) {
-            throw new InvalidRuleException("Rule [$rule] must be an instance of Rule.");
+        if (!$obj instanceof AbstractRule) {
+            throw new InvalidRuleException("Rule [$rule] must be an instance of AbstractRule.");
         }
 
         if (isset(static::$rules[$rule]) && !$override) {
@@ -152,7 +151,7 @@ class Validator implements ValidatorContract
      * @param Rule $rule
      * @param mixed $params
      */
-    protected function addError(Rule $rule, mixed ...$params): void
+    protected function addError(AbstractRule $rule, mixed ...$params): void
     {
         $name = $rule->getName();
         $message = $this->resolveErrorMessage($rule->getMessage(), ...$params);
@@ -196,6 +195,21 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Change default error messages.
+     *
+     * @param array $messages
+     * @return void
+     */
+    public static function setMessages(array $messages): void
+    {
+        foreach ($messages as $rule => $message) {
+            $rule = static::getAlias($rule);
+            if (!static::hasRule($rule)) continue;
+            static::$rules[$rule]->setMessage($message);
+        }
+    }
+
+    /**
      * Get errors in JSON format
      *
      * @return string
@@ -211,7 +225,7 @@ class Validator implements ValidatorContract
      * @param string $rule
      * @return string
      */
-    protected function getAlias(string $rule): string
+    protected static function getAlias(string $rule): string
     {
         return static::$aliases[$rule] ?? $rule;
     }
@@ -225,7 +239,7 @@ class Validator implements ValidatorContract
      */
     public function __call(string $name, array $arguments = [])
     {
-        $rule = static::$rules[$this->getAlias($name)] ?? null;
+        $rule = static::$rules[self::getAlias($name)] ?? null;
 
         if (!$rule) {
             throw new RuleNotFoundException("Rule [$name] does not exist.");

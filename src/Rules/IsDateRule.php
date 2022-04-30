@@ -2,10 +2,15 @@
 
 namespace Validator\Rules;
 
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class IsDateRule implements Rule
+class IsDateRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value should be a valid date.';
+
     /**
      * Rule name.
      * 
@@ -14,16 +19,6 @@ class IsDateRule implements Rule
     public function getName(): string
     {
         return 'isDate';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value should be a valid date.';
     }
 
     /**

@@ -3,10 +3,15 @@
 namespace Validator\Rules;
 
 use ArgumentCountError;
-use Validator\Contracts\Rule;
+use Validator\AbstractRule;
 
-class PatternRule implements Rule
+class PatternRule extends AbstractRule
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected string $message = 'Value does not match the given pattern.';
+
     /**
      * Rule name.
      * 
@@ -15,16 +20,6 @@ class PatternRule implements Rule
     public function getName(): string
     {
         return 'pattern';
-    }
-
-    /**
-     * Rule failure message.
-     * 
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return 'Value does not match the given pattern.';
     }
 
     /**
