@@ -5,6 +5,20 @@ namespace Validator;
 use Validator\Contracts\Validator as ValidatorContract;
 use Validator\Errors\{DuplicateRuleException, InvalidRuleException, RuleNotFoundException,};
 
+/**
+ * @method static Validator alpha()
+ * @method static Validator between(int $start, int $end)
+ * @method static Validator contains(mixed ...$value)
+ * @method static Validator doesntContain(mixed ...$value)
+ * @method static Validator each(callable $callback)
+ * @method static Validator email()
+ * @method static Validator equal(mixed $value)
+ * @method static Validator isDate()
+ * @method static Validator max(int $max)
+ * @method static Validator min(int $min)
+ * @method static Validator pattern(string $pattern)
+ * @method static Validator required()
+ */
 class Validator implements ValidatorContract
 {
     /**
