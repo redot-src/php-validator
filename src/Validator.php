@@ -148,11 +148,24 @@ class Validator implements ValidatorContract
     protected function addError(Rule $rule, mixed ...$params): void
     {
         $name = $rule->getName();
-        $message = preg_replace_callback('/\{(\d+)\}/', function ($matches) use ($params) {
-            return $params[$matches[1]];
-        }, $rule->getMessage());
-
+        $message = $this->resolveErrorMessage($rule->getMessage(), ...$params);
         $this->errors[$name] = $message;
+    }
+
+    /**
+     * Resolve rule error message.
+     *
+     * @param string $message
+     * @param mixed ...$params
+     * @return string
+     */
+    protected function resolveErrorMessage(string $message, mixed ...$params): string
+    {
+        return preg_replace_callback('/\{(\d+)\}/', function ($matches) use ($params) {
+            $value = $params[$matches[1]];
+            if (Utils::canBeString($value)) return $value;
+            return json_encode($value, JSON_UNESCAPED_UNICODE);
+        }, $message);
     }
 
     /**
