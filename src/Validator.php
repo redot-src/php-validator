@@ -3,11 +3,7 @@
 namespace Validator;
 
 use Validator\Contracts\Validator as ValidatorContract;
-use Validator\Errors\{
-    DuplicateRuleException,
-    RuleNotFoundException,
-    InvalidRuleException,
-};
+use Validator\Errors\{DuplicateRuleException, InvalidRuleException, RuleNotFoundException,};
 
 class Validator implements ValidatorContract
 {
@@ -107,6 +103,9 @@ class Validator implements ValidatorContract
      * @param string $rule
      * @param bool $override
      * @return void
+     *
+     * @throws DuplicateRuleException
+     * @throws InvalidRuleException
      */
     public static function registerRule(string $rule, bool $override = false): void
     {
@@ -148,8 +147,8 @@ class Validator implements ValidatorContract
     /**
      * Add validation error.
      *
-     * @param Rule $rule
-     * @param mixed $params
+     * @param AbstractRule $rule
+     * @param mixed ...$params
      */
     protected function addError(AbstractRule $rule, mixed ...$params): void
     {
@@ -167,7 +166,7 @@ class Validator implements ValidatorContract
      */
     protected function resolveErrorMessage(string $message, mixed ...$params): string
     {
-        return preg_replace_callback('/\{(\d+)\}/', function ($matches) use ($params) {
+        return preg_replace_callback('/\{(\d+)}/', function ($matches) use ($params) {
             $value = $params[$matches[1]];
             if (Utils::canBeString($value)) return $value;
             return json_encode($value, JSON_UNESCAPED_UNICODE);
@@ -236,6 +235,8 @@ class Validator implements ValidatorContract
      * @param string $name
      * @param mixed ...$arguments
      * @return Validator
+     *
+     * @throws RuleNotFoundException
      */
     public function __call(string $name, array $arguments = [])
     {

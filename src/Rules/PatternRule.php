@@ -24,18 +24,19 @@ class PatternRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      *
      * @throws ArgumentCountError
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         if (count($params) < 1) {
             throw new ArgumentCountError('Pattern rule requires at least one parameter.');
         }
 
-        return preg_match($params[0], $value) === 1;
+        return preg_match($params[0], $value) !== false;
     }
 }

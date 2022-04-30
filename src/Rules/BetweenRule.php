@@ -13,7 +13,7 @@ class BetweenRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -23,11 +23,12 @@ class BetweenRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         return $value >= $params[0] && $value <= $params[1];
     }

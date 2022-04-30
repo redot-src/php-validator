@@ -5,7 +5,7 @@ use Validator\AbstractRule;
 use Validator\Errors\InvalidRuleException;
 use Validator\Errors\DuplicateRuleException;
 
-class EqualsOne extends AbstractRule
+class ValidatorTest extends AbstractRule
 {
     protected string $message = 'Value should be equal to 1.';
 
@@ -21,8 +21,8 @@ class EqualsOne extends AbstractRule
 }
 
 it('can register a rule', function () {
-    Validator::registerRule(EqualsOne::class);
-    expect(Validator::hasRule(EqualsOne::class))->toBe(true);
+    Validator::registerRule(ValidatorTest::class);
+    expect(Validator::hasRule(ValidatorTest::class))->toBe(true);
 });
 
 it('can validate a rule', function () {
@@ -41,7 +41,7 @@ it('throw an exception if rule is not an instance of Rule', function () {
 });
 
 it('throws an exception if rule is already registered', function () {
-    expect(fn () => Validator::registerRule(EqualsOne::class))
+    expect(fn () => Validator::registerRule(ValidatorTest::class))
         ->toThrow(DuplicateRuleException::class);
 });
 
@@ -52,7 +52,7 @@ it('can validate multiple values', function () {
 });
 
 it('can change the default error message', function () {
-    Validator::setMessages([EqualsOne::class => 'test']);
+    Validator::setMessages([ValidatorTest::class => 'test']);
     expect(Validator::init(2)->equalsOne()->getErrors())
         ->toBe(['equalsOne' => 'test']);
 

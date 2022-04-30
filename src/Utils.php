@@ -7,7 +7,7 @@ use Stringable;
 class Utils
 {
     /**
-     * Check if value can be casted to string.
+     * Check if value can be cast to string.
      *
      * @param mixed $value
      * @return bool

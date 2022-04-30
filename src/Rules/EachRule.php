@@ -2,9 +2,9 @@
 
 namespace Validator\Rules;
 
+use InvalidArgumentException;
 use Traversable;
 use Validator\AbstractRule;
-use InvalidArgumentException;
 
 class EachRule extends AbstractRule
 {
@@ -27,11 +27,12 @@ class EachRule extends AbstractRule
      * Check if rule is valid.
      *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      *
      * @throws InvalidArgumentException
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         if (!is_array($value) && !$value instanceof Traversable) {
             throw new InvalidArgumentException('Value must be an array or Traversable.');

@@ -26,6 +26,8 @@ abstract class AbstractRule implements Rule
      *
      * @param string $message
      * @return void
+     *
+     * @noinspection PhpUnused
      */
     final public function setMessage(string $message): void
     {

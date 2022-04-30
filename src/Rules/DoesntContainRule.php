@@ -11,6 +11,7 @@ class DoesntContainRule extends AbstractRule
      * {@inheritdoc}
      */
     protected string $message = 'Value contains {0}.';
+
     /**
      * Rule name.
      * 
@@ -23,13 +24,14 @@ class DoesntContainRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      *
      * @throws ArgumentCountError
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         if (count($params) < 1) {
             throw new ArgumentCountError('DoesntContain rule requires at least one parameter.');
@@ -50,5 +52,7 @@ class DoesntContainRule extends AbstractRule
 
             return false;
         }
+
+        return false;
     }
 }

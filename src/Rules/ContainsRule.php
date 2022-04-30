@@ -14,7 +14,7 @@ class ContainsRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -24,13 +24,14 @@ class ContainsRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      *
      * @throws ArgumentCountError
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         if (count($params) < 1) {
             throw new ArgumentCountError('Contain rule requires at least one parameter.');
@@ -51,5 +52,7 @@ class ContainsRule extends AbstractRule
 
             return false;
         }
+
+        return false;
     }
 }

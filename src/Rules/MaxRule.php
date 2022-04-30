@@ -24,13 +24,14 @@ class MaxRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
-     * @param mixed $params
+     * @param mixed ...$params
+     * @return bool
      *
      * @throws ArgumentCountError
      */
-    public function validate($value, ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         if (count($params) < 1) {
             throw new ArgumentCountError('Max rule requires at least one parameter.');
