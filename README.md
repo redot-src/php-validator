@@ -22,7 +22,7 @@ After registering the rules that you want to use, you can use the validator like
 
 use Validator\Validator;
 
-/* Inistantiate a new validator */
+/* Instantiate a new validator */
 $validator = new Validator($email);
 
 /* Or you can use the static method init */
@@ -68,7 +68,7 @@ Validator::registerRule(RequiredRule::class);
 
 ## Pre-defined rules
 
-Heres a list of pre-defined rules:
+Here's a list of pre-defined rules:
 - `Alpha` => Check if the value is alphabetic
 - `Between` => Check if the value is between two values
 - `Contains` => Check if the value contains another value
