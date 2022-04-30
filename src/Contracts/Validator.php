@@ -43,7 +43,7 @@ interface Validator
      * @param string $rule
      * @return bool
      */
-    public static function hasRule(string $name): bool;
+    public static function hasRule(string $rule): bool;
 
     /**
      * Get validation result.

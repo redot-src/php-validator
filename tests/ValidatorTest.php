@@ -25,7 +25,7 @@ class EqualsOne implements Rule
 
 it('can register a rule', function () {
     Validator::registerRule(EqualsOne::class);
-    expect(Validator::hasRule('equalsOne'))->toBe(true);
+    expect(Validator::hasRule(EqualsOne::class))->toBe(true);
 });
 
 it('can validate a rule', function () {
@@ -46,4 +46,10 @@ it('throw an exception if rule is not an instance of Rule', function () {
 it('throws an exception if rule is already registered', function () {
     expect(fn () => Validator::registerRule(EqualsOne::class))
         ->toThrow(DuplicateRuleException::class);
+});
+
+it('can validate multiple values', function () {
+    $entries = ['email' => 'test@vendor.com'];
+    $validations = ['email' => 'required|email|min:5|max:255'];
+    expect(Validator::initMultiple($entries, $validations))->toBe(true);
 });

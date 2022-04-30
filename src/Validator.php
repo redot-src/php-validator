@@ -17,7 +17,14 @@ class Validator implements ValidatorContract
      *
      * @var array
      */
-    public static array $rules = [];
+    protected static array $rules = [];
+
+    /**
+     * Rules aliases.
+     *
+     * @var array
+     */
+    protected static array $aliases = [];
 
     /**
      * Validation failures.
@@ -110,12 +117,12 @@ class Validator implements ValidatorContract
             throw new InvalidRuleException("Rule [$rule] must be an instance of Rule.");
         }
 
-        $name = $obj->getName();
-        if (isset(static::$rules[$name]) && !$override) {
+        if (isset(static::$rules[$rule]) && !$override) {
             throw new DuplicateRuleException("Rule [$rule] already registered.");
         }
 
-        static::$rules[$name] = $obj;
+        static::$rules[$rule] = $obj;
+        static::$aliases[$obj->getName()] = $rule;
     }
 
     /**
@@ -124,9 +131,9 @@ class Validator implements ValidatorContract
      * @param string $rule
      * @return bool
      */
-    public static function hasRule(string $name): bool
+    public static function hasRule(string $rule): bool
     {
-        return isset(static::$rules[$name]);
+        return isset(static::$rules[$rule]) || isset(static::$aliases[$rule]);
     }
 
     /**
@@ -199,6 +206,17 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Get rule alias.
+     *
+     * @param string $rule
+     * @return string
+     */
+    protected function getAlias(string $rule): string
+    {
+        return static::$aliases[$rule] ?? $rule;
+    }
+
+    /**
      * Call validation rule.
      *
      * @param string $name
@@ -207,7 +225,7 @@ class Validator implements ValidatorContract
      */
     public function __call(string $name, array $arguments = [])
     {
-        $rule = static::$rules[$name] ?? null;
+        $rule = static::$rules[$this->getAlias($name)] ?? null;
 
         if (!$rule) {
             throw new RuleNotFoundException("Rule [$name] does not exist.");

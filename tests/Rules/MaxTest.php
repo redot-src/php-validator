@@ -1,9 +1,6 @@
 <?php
 
 use Validator\Validator;
-use Validator\Rules\MaxRule;
-
-Validator::registerRule(MaxRule::class);
 
 test('Max: valid case (number)', function () {
     expect(Validator::init(5)->max(6)->validate())->toBe(true);

@@ -1,9 +1,6 @@
 <?php
 
 use Validator\Validator;
-use Validator\Rules\MinRule;
-
-Validator::registerRule(MinRule::class);
 
 test('Min: valid case (number)', function () {
     expect(Validator::init(6)->min(5)->validate())->toBe(true);
