@@ -69,17 +69,18 @@ Validator::registerRule(RequiredRule::class);
 ## Pre-defined rules
 
 Heres a list of pre-defined rules:
-- `Alpha`
-- `Between`
-- `Contains`
-- `DoesntContain`
-- `Equal`
-- `Email`
-- `IsDate`
-- `Max`
-- `Min`
-- `Pattern`
-- `Required`
+- `Alpha` => Check if the value is alphabetic
+- `Between` => Check if the value is between two values
+- `Contains` => Check if the value contains another value
+- `DoesntContain` => Check if the value doesn't contain another value
+- `Each` => Check if the value is an array and each value is valid
+- `Equal` => Check if the value is equal to another value
+- `Email` => Check if the value is a valid email
+- `IsDate` => Check if the value is a valid date
+- `Max` => Check if the value is less than or equal to another value
+- `Min` => Check if the value is greater than or equal to another value
+- `Pattern` => Check if the value matches a regular expression
+- `Required` => Check if the value is not empty
 
 *You can submit a pull request to add a new rule.*
 
