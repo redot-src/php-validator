@@ -2,6 +2,7 @@
 
 namespace Validator\Rules;
 
+use ArgumentCountError;
 use Validator\Contracts\Rule;
 
 class PatternRule implements Rule
@@ -34,6 +35,10 @@ class PatternRule implements Rule
      */
     public function validate($value, ...$params): bool
     {
+        if (count($params) < 1) {
+            throw new ArgumentCountError('Pattern rule requires at least one parameter.');
+        }
+
         return preg_match($params[0], $value) === 1;
     }
 }

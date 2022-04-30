@@ -2,6 +2,7 @@
 
 namespace Validator\Rules;
 
+use ArgumentCountError;
 use Validator\Contracts\Rule;
 
 class MinRule implements Rule
@@ -34,6 +35,10 @@ class MinRule implements Rule
      */
     public function validate($value, ...$params): bool
     {
+        if (count($params) < 1) {
+            throw new ArgumentCountError('Min rule requires at least one parameter.');
+        }
+
         if (is_string($value)) {
             return strlen($value) >= $params[0];
         }
