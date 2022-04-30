@@ -3,6 +3,7 @@
 use Validator\Validator;
 
 $baseRules = [
+    \Validator\Rules\AlphaRule::class,
     \Validator\Rules\EmailRule::class,
     \Validator\Rules\EqualRule::class,
     \Validator\Rules\IsDateRule::class,
