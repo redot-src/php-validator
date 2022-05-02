@@ -129,7 +129,7 @@ class Validator implements ValidatorContract
             throw new InvalidRuleException("Rule [$rule] must be an instance of AbstractRule.");
         }
 
-        if (isset(static::$rules[$rule]) && !$override) {
+        if (static::hasRule($rule) && !$override) {
             throw new DuplicateRuleException("Rule [$rule] already registered.");
         }
 
