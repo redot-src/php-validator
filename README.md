@@ -73,7 +73,7 @@ Here's a list of pre-defined rules:
 - `Between` => Check if the value is between two values
 - `Contains` => Check if the value contains another value
 - `DoesntContain` => Check if the value doesn't contain another value
-- `Each` => Check if the value is an array and each value is valid
+- `Each` => Check if each value is valid
 - `Equal` => Check if the value is equal to another value
 - `Email` => Check if the value is a valid email
 - `IsDate` => Check if the value is a valid date

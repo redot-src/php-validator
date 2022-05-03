@@ -30,12 +30,7 @@ it('can validate a rule', function () {
     expect(Validator::init(2)->equalsOne()->validate())->toBe(false);
 });
 
-it('can validate multiple entries', function () {
-    expect(Validator::initMultiple(['one' => 1], ['one' => 'equalsOne']))
-        ->toBe(true);
-});
-
-it('throw an exception if rule is not an instance of Rule', function () {
+it('throws an exception if rule is not an instance of Rule', function () {
     expect(fn () => Validator::registerRule(stdClass::class))
         ->toThrow(InvalidRuleException::class);
 });
@@ -49,6 +44,11 @@ it('can validate multiple values', function () {
     $entries = ['email' => 'test@vendor.com'];
     $validations = ['email' => 'required|email|min:5|max:255'];
     expect(Validator::initMultiple($entries, $validations))->toBe(true);
+});
+
+it('can validate multiple entries', function () {
+    expect(Validator::initMultiple(['one' => 1], ['one' => 'equalsOne']))
+        ->toBe(true);
 });
 
 it('can change the default error message', function () {
