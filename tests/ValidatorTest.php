@@ -21,7 +21,7 @@ class ValidatorTest extends AbstractRule
 }
 
 it('can register a rule', function () {
-    Validator::registerRule(ValidatorTest::class);
+    Validator::addRule(ValidatorTest::class);
     expect(Validator::hasRule(ValidatorTest::class))->toBe(true);
 });
 
@@ -31,12 +31,12 @@ it('can validate a rule', function () {
 });
 
 it('throws an exception if rule is not an instance of Rule', function () {
-    expect(fn () => Validator::registerRule(stdClass::class))
+    expect(fn () => Validator::addRule(stdClass::class))
         ->toThrow(InvalidRuleException::class);
 });
 
 it('throws an exception if rule is already registered', function () {
-    expect(fn () => Validator::registerRule(ValidatorTest::class))
+    expect(fn () => Validator::addRule(ValidatorTest::class))
         ->toThrow(DuplicateRuleException::class);
 });
 

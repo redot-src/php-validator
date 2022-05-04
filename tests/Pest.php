@@ -19,6 +19,6 @@ $baseRules = [
 
 foreach ($baseRules as $rule) {
     if (!Validator::hasRule($rule)) {
-        Validator::registerRule($rule);
+        Validator::addRule($rule);
     }
 }

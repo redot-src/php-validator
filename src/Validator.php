@@ -112,7 +112,7 @@ class Validator implements ValidatorContract
     }
 
     /**
-     * Register a rule to validator.
+     * Add a rule to validator.
      *
      * @param string $rule
      * @param bool $override
@@ -121,7 +121,7 @@ class Validator implements ValidatorContract
      * @throws DuplicateRuleException
      * @throws InvalidRuleException
      */
-    public static function registerRule(string $rule, bool $override = false): void
+    public static function addRule(string $rule, bool $override = false): void
     {
         $obj = new $rule;
 
@@ -146,6 +146,34 @@ class Validator implements ValidatorContract
     public static function hasRule(string $rule): bool
     {
         return isset(static::$rules[$rule]) || isset(static::$aliases[$rule]);
+    }
+
+    /**
+     * Get rule alias.
+     *
+     * @param string $rule
+     * @return string
+     */
+    protected static function getAlias(string $rule): string
+    {
+        return static::$aliases[$rule] ?? $rule;
+    }
+
+    /**
+     * Get rule instance.
+     *
+     * @param string $rule
+     * @return AbstractRule
+     *
+     * @throws RuleNotFoundException
+     */
+    protected static function getRule(string $rule): AbstractRule
+    {
+        if (!static::hasRule($rule)) {
+            throw new RuleNotFoundException("Rule [$rule] not found.");
+        }
+
+        return static::$rules[static::getAlias($rule)];
     }
 
     /**
@@ -216,9 +244,7 @@ class Validator implements ValidatorContract
     public static function setMessages(array $messages): void
     {
         foreach ($messages as $rule => $message) {
-            $rule = static::getAlias($rule);
-            if (!static::hasRule($rule)) continue;
-            static::$rules[$rule]->setMessage($message);
+            static::getRule($rule)->setMessage($message);
         }
     }
 
@@ -233,32 +259,15 @@ class Validator implements ValidatorContract
     }
 
     /**
-     * Get rule alias.
-     *
-     * @param string $rule
-     * @return string
-     */
-    protected static function getAlias(string $rule): string
-    {
-        return static::$aliases[$rule] ?? $rule;
-    }
-
-    /**
      * Call validation rule.
      *
      * @param string $name
      * @param mixed ...$arguments
      * @return Validator
-     *
-     * @throws RuleNotFoundException
      */
     public function __call(string $name, array $arguments = [])
     {
-        $rule = static::$rules[self::getAlias($name)] ?? null;
-
-        if (!$rule) {
-            throw new RuleNotFoundException("Rule [$name] does not exist.");
-        }
+        $rule = static::getRule($name);
 
         if (!$rule->validate($this->value, ...$arguments)) {
             $this->addError($rule, ...$arguments);

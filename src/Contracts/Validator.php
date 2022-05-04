@@ -30,12 +30,12 @@ interface Validator
     public function setValue(mixed $value): void;
 
     /**
-     * Register a rule to validator.
+     * Add a rule to validator.
      *
      * @param string $rule
      * @return void
      */
-    public static function registerRule(string $rule): void;
+    public static function addRule(string $rule): void;
 
     /**
      * Check if rule exists.
