@@ -228,6 +228,17 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Get validation error.
+     *
+     * @param string $key
+     * @return string|null
+     */
+    public function getError(string $key): string|null
+    {
+        return $this->errors[$key] ?? null;
+    }
+
+    /**
      * Clear validation errors.
      *
      * @return void
