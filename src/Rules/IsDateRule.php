@@ -24,7 +24,7 @@ class IsDateRule extends AbstractRule
     /**
      * Check if rule is valid.
      *
-     * @param mixed $value
+     * @param string $value
      * @param mixed ...$params
      * @return bool
      */

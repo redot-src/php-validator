@@ -25,8 +25,8 @@ class PatternRule extends AbstractRule
     /**
      * Check if rule is valid.
      *
-     * @param mixed $value
-     * @param mixed ...$params
+     * @param string $value
+     * @param string ...$params
      * @return bool
      *
      * @throws ArgumentCountError
@@ -37,6 +37,12 @@ class PatternRule extends AbstractRule
             throw new ArgumentCountError('Pattern rule requires at least one parameter.');
         }
 
-        return (bool) preg_match($params[0], $value);
+        foreach ($params as $param) {
+            if (!(bool) preg_match($param, $value)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

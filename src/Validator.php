@@ -2,6 +2,7 @@
 
 namespace Validator;
 
+use JetBrains\PhpStorm\Pure;
 use Validator\Contracts\Validator as ValidatorContract;
 use Validator\Errors\{DuplicateRuleException, InvalidRuleException, RuleNotFoundException,};
 
@@ -24,21 +25,21 @@ class Validator implements ValidatorContract
     /**
      * Registered validation rules.
      *
-     * @var array
+     * @var array<string, AbstractRule>
      */
     protected static array $rules = [];
 
     /**
      * Rules aliases.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected static array $aliases = [];
 
     /**
      * Validation failures.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected array $errors = [];
 
@@ -54,7 +55,7 @@ class Validator implements ValidatorContract
      *
      * @param mixed $value
      */
-    public function __construct(mixed $value = null)
+    final public function __construct(mixed $value = null)
     {
         $this->value = $value;
     }
@@ -65,7 +66,7 @@ class Validator implements ValidatorContract
      * @param mixed $value
      * @return Validator
      */
-    public static function init(mixed $value = null): Validator
+    #[Pure] public static function init(mixed $value = null): Validator
     {
         return new static($value);
     }
@@ -73,9 +74,9 @@ class Validator implements ValidatorContract
     /**
      * Validate Multiple Entries.
      *
-     * @param array $values
-     * @param array $entries
-     * @return array|bool
+     * @param array<string, mixed> $values
+     * @param array<string, string> $entries
+     * @return array<string, array<string, string>>|true
      */
     public static function initMultiple(array $values, array $entries): array|bool
     {
@@ -208,17 +209,18 @@ class Validator implements ValidatorContract
      */
     protected function resolveErrorMessage(string $message, mixed ...$params): string
     {
-        return preg_replace_callback('/\{(\d+)}/', function ($matches) use ($params) {
+        /* @phpstan-ignore-next-line */
+        return preg_replace_callback('/{(\d+)}/', function ($matches) use ($params) {
             $value = $params[$matches[1]];
             if (Utils::canBeString($value)) return $value;
             return json_encode($value, JSON_UNESCAPED_UNICODE);
-        }, $message);
+        }, $message) ?: '';
     }
 
     /**
      * Get validation errors.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getErrors(): array
     {
@@ -238,8 +240,10 @@ class Validator implements ValidatorContract
     /**
      * Change default error messages.
      *
-     * @param array $messages
+     * @param array<string, string> $messages
      * @return void
+     *
+     * @throws RuleNotFoundException
      */
     public static function setMessages(array $messages): void
     {
@@ -255,15 +259,17 @@ class Validator implements ValidatorContract
      */
     public function __toString(): string
     {
-        return json_encode($this->getErrors(), JSON_UNESCAPED_UNICODE);
+        return json_encode($this->getErrors(), JSON_UNESCAPED_UNICODE) ?: '';
     }
 
     /**
      * Call validation rule.
      *
      * @param string $name
-     * @param mixed ...$arguments
+     * @param array<int, mixed> $arguments
      * @return Validator
+     *
+     * @throws RuleNotFoundException
      */
     public function __call(string $name, array $arguments = [])
     {

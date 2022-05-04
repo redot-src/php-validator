@@ -17,7 +17,9 @@
         "php": ">=8.0"
     },
     "require-dev": {
-        "pestphp/pest": "^1.21"
+        "pestphp/pest": "^1.21",
+        "phpstan/phpstan": "^1.6",
+        "jetbrains/phpstorm-attributes": "^1.0"
     },
     "config": {
         "allow-plugins": {
@@ -25,6 +27,7 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/pest"
+        "test": "./vendor/bin/pest",
+        "phpstan": "./vendor/bin/phpstan analyse src -l 9"
     }
 }

@@ -15,9 +15,9 @@ interface Validator
     /**
      * Validate Multiple Entries.
      *
-     * @param array $values
-     * @param array $entries
-     * @return array|bool
+     * @param array<string, mixed> $values
+     * @param array<string, string> $entries
+     * @return array<string, string>|bool
      */
     public static function initMultiple(array $values, array $entries): array|bool;
 
@@ -55,7 +55,7 @@ interface Validator
     /**
      * Get validation errors.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getErrors(): array;
 
@@ -69,7 +69,7 @@ interface Validator
     /**
      * Change default error messages.
      *
-     * @param array $messages
+     * @param array<string, string> $messages
      * @return void
      */
     public static function setMessages(array $messages): void;

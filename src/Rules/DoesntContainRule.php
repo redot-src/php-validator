@@ -39,7 +39,7 @@ class DoesntContainRule extends AbstractRule
 
         foreach ($params as $param) {
             if (is_string($value)) {
-                return !str_contains($value, $param);
+                return !str_contains($value, strval($param));
             }
 
             if (is_array($value)) {
@@ -47,12 +47,10 @@ class DoesntContainRule extends AbstractRule
             }
 
             if (is_object($value)) {
-                return !property_exists($value, $param);
+                return !property_exists($value, strval($param));
             }
 
             return false;
         }
-
-        return false;
     }
 }
