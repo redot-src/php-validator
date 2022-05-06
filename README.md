@@ -19,7 +19,6 @@ composer test
 After registering the rules that you want to use, you can use the validator like this:
 
 ```php
-
 use Validator\Validator;
 
 /* Instantiate a new validator */
@@ -34,13 +33,11 @@ $validator->email()->required()->max(255);
 if (!$validator->validate()) {
     return $validator; // validation result in JSON format
 }
-
 ```
 
 Also, you can validate multiple values at once:
 
 ```php
-
 $errors = Validator::initMultiple($_POST, [
     'email' => 'email',
     'password' => 'required|min:6|max:255'
@@ -49,7 +46,6 @@ $errors = Validator::initMultiple($_POST, [
 if (count($errors)) {
     // do something
 }
-
 ```
 
 *Note that multiple validations return an array of failures rather than a Validator instance.*
@@ -59,11 +55,9 @@ if (count($errors)) {
 The validator came without any registered rules by default. You can add them by using the `Validator::addRule()` method.
 
 ```php
-
 use Validator\Rules\RequiredRule;
 
 Validator::addRule(RequiredRule::class);
-
 ```
 
 ## Pre-defined rules
@@ -89,7 +83,6 @@ Here's a list of pre-defined rules:
 If you have a specific rule you want to use, you can create a class that extends `Validator\AbstractRule` and register it.
 
 ```php
-
 class CustomRule extends AbstractRule
 {
     protected string $message = '...';
@@ -104,7 +97,6 @@ class CustomRule extends AbstractRule
         // validation logic
     }
 }
-
 ```
 
 ## Custom messages
@@ -112,13 +104,11 @@ class CustomRule extends AbstractRule
 If you want to customize the error messages, you can use the `Validator::setMessages()` method.
 
 ```php
-
 Validator::setMessages([
     'required' => 'The value is required.',
     'email' => 'The value is not a valid email.'
     'max' => 'The value should be less than or equal to {0}.',
 ]);
-
 ```
 
 *Note that you can pass parameters to the message using `{x}` placeholders where `x` is the index of the parameter.*
