@@ -2,13 +2,11 @@
 
 namespace Validator\Rules;
 
+use InvalidArgumentException;
 use Validator\AbstractRule;
 
 class TypeOfRule extends AbstractRule
 {
-    /**
-     * Allowed types
-     */
     const TYPE_INTEGER = 'integer';
     const TYPE_DOUBLE = 'double';
     const TYPE_STRING = 'string';
@@ -34,6 +32,25 @@ class TypeOfRule extends AbstractRule
     }
 
     /**
+     * Get allowed types.
+     *
+     * @return string[]
+     */
+    protected function getTypes(): array
+    {
+        return [
+            self::TYPE_INTEGER,
+            self::TYPE_DOUBLE,
+            self::TYPE_STRING,
+            self::TYPE_BOOLEAN,
+            self::TYPE_ARRAY,
+            self::TYPE_OBJECT,
+            self::TYPE_RESOURCE,
+            self::TYPE_NULL,
+        ];
+    }
+
+    /**
      * Check if rule is valid.
      *
      * @param mixed $value
@@ -43,6 +60,19 @@ class TypeOfRule extends AbstractRule
     public function validate($value, ...$params): bool
     {
         $type = $params[0];
+
+        if (!is_string($type)) {
+            throw new InvalidArgumentException('Type must be a string.');
+        }
+
+        if (!in_array($type, $this->getTypes())) {
+            throw new InvalidArgumentException(sprintf(
+                'Type %s is not supported. Supported types are: %s',
+                $type,
+                implode(', ', $this->getTypes())
+            ));
+        }
+
         $this->message = str_replace('{type}', $type, $this->message);
         return strtolower(gettype($value)) === $type;
     }
