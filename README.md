@@ -75,6 +75,7 @@ Here's a list of pre-defined rules:
 - `Min` => Check if the value is greater than or equal to another value
 - `Pattern` => Check if the value matches a regular expression
 - `Required` => Check if the value is not empty
+- `TypeOf` => Check if the value is a type of certain type
 
 *You can submit a pull request to add a new rule.*
 

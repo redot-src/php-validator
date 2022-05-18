@@ -15,6 +15,7 @@ $baseRules = [
     \Validator\Rules\MinRule::class,
     \Validator\Rules\PatternRule::class,
     \Validator\Rules\RequiredRule::class,
+    \Validator\Rules\TypeOfRule::class,
 ];
 
 foreach ($baseRules as $rule) {
