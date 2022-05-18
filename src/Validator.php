@@ -19,6 +19,7 @@ use Validator\Errors\{DuplicateRuleException, InvalidRuleException, RuleNotFound
  * @method static Validator min(int $min)
  * @method static Validator pattern(string $pattern)
  * @method static Validator required()
+ * @method static Validator typeOf(string $type)
  */
 class Validator implements ValidatorContract
 {
