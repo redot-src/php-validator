@@ -3,6 +3,7 @@
 use Validator\Validator;
 use Validator\AbstractRule;
 use Validator\Errors\InvalidRuleException;
+use Validator\Errors\RuleNotFoundException;
 use Validator\Errors\DuplicateRuleException;
 
 class ValidatorTest extends AbstractRule
@@ -38,6 +39,11 @@ it('throws an exception if rule is not an instance of Rule', function () {
 it('throws an exception if rule is already registered', function () {
     expect(fn () => Validator::addRule(ValidatorTest::class))
         ->toThrow(DuplicateRuleException::class);
+});
+
+it('throw an exception if rule is not registered', function () {
+    expect(fn () => Validator::init(1)->notExists()->validate())
+        ->toThrow(RuleNotFoundException::class);
 });
 
 it('can validate multiple values', function () {

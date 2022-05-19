@@ -60,6 +60,12 @@ use Validator\Rules\RequiredRule;
 Validator::addRule(RequiredRule::class);
 ```
 
+Also you can load the default rules by using the `Validator::loadDefaultRules()` method.
+
+```php
+Validator::loadDefaultRules();
+```
+
 ## Pre-defined rules
 
 Here's a list of pre-defined rules:
