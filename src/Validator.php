@@ -4,7 +4,11 @@ namespace Validator;
 
 use JetBrains\PhpStorm\Pure;
 use Validator\Contracts\Validator as ValidatorContract;
-use Validator\Errors\{DuplicateRuleException, InvalidRuleException, RuleNotFoundException,};
+use Validator\Errors\{
+    InvalidRuleException,
+    RuleNotFoundException,
+    DuplicateRuleException,
+};
 
 /**
  * @method static Validator alpha()
@@ -103,6 +107,36 @@ class Validator implements ValidatorContract
     }
 
     /**
+     * Load default rules.
+     *
+     * @return void
+     */
+    public static function loadDefaultRules(): void
+    {
+        $baseRules = [
+            Rules\AlphaRule::class,
+            Rules\BetweenRule::class,
+            Rules\ContainsRule::class,
+            Rules\DoesntContainRule::class,
+            Rules\EachRule::class,
+            Rules\EmailRule::class,
+            Rules\EqualRule::class,
+            Rules\IsDateRule::class,
+            Rules\MaxRule::class,
+            Rules\MinRule::class,
+            Rules\PatternRule::class,
+            Rules\RequiredRule::class,
+            Rules\TypeOfRule::class,
+        ];
+
+        foreach ($baseRules as $rule) {
+            if (!Validator::hasRule($rule)) {
+                Validator::addRule($rule);
+            }
+        }
+    }
+
+    /**
      * Set validation value.
      *
      * @param mixed $value
@@ -147,7 +181,7 @@ class Validator implements ValidatorContract
      */
     public static function hasRule(string $rule): bool
     {
-        return isset(static::$rules[$rule]) || isset(static::$aliases[$rule]);
+        return isset(static::$rules[static::getAlias($rule)]);
     }
 
     /**
@@ -214,7 +248,7 @@ class Validator implements ValidatorContract
         return preg_replace_callback('/{(\d+)}/', function ($matches) use ($params) {
             $value = $params[$matches[1]];
             if (Utils::canBeString($value)) return $value;
-            return json_encode($value, JSON_UNESCAPED_UNICODE);
+            return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION);
         }, $message) ?: '';
     }
 

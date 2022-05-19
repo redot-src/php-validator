@@ -22,6 +22,13 @@ interface Validator
     public static function initMultiple(array $values, array $entries): array|bool;
 
     /**
+     * Load default rules.
+     *
+     * @return void
+     */
+    public static function loadDefaultRules(): void;
+
+    /**
      * Set validation value.
      *
      * @param mixed $value
