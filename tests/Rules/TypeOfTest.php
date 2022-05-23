@@ -1,7 +1,7 @@
 <?php
 
-use Validator\Validator;
-use Validator\Rules\TypeOfRule;
+use Redot\Validator\Validator;
+use Redot\Validator\Rules\TypeOfRule;
 
 test('TypeOf: valid case (integer)', function () {
     expect(Validator::init(1)->typeOf(TypeOfRule::TYPE_INTEGER)->validate())->toBe(true);

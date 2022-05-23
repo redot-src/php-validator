@@ -1,6 +1,6 @@
 <?php
 
-namespace Validator\Contracts;
+namespace Redot\Validator\Contracts;
 
 interface Validator
 {
@@ -8,9 +8,9 @@ interface Validator
      * Initiate new validator.
      *
      * @param mixed $value
-     * @return \Validator\Validator
+     * @return \Redot\Validator\Validator
      */
-    public static function init(mixed $value): \Validator\Validator;
+    public static function init(mixed $value): \Redot\Validator\Validator;
 
     /**
      * Validate Multiple Entries.

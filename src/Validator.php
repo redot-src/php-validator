@@ -1,10 +1,10 @@
 <?php
 
-namespace Validator;
+namespace Redot\Validator;
 
 use JetBrains\PhpStorm\Pure;
-use Validator\Contracts\Validator as ValidatorContract;
-use Validator\Errors\{
+use Redot\Validator\Contracts\Validator as ValidatorContract;
+use Redot\Validator\Errors\{
     InvalidRuleException,
     RuleNotFoundException,
     DuplicateRuleException,

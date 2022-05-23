@@ -1,10 +1,10 @@
 <?php
 
-use Validator\Validator;
-use Validator\AbstractRule;
-use Validator\Errors\InvalidRuleException;
-use Validator\Errors\RuleNotFoundException;
-use Validator\Errors\DuplicateRuleException;
+use Redot\Validator\Validator;
+use Redot\Validator\AbstractRule;
+use Redot\Validator\Errors\InvalidRuleException;
+use Redot\Validator\Errors\RuleNotFoundException;
+use Redot\Validator\Errors\DuplicateRuleException;
 
 class ValidatorTest extends AbstractRule
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Validator\Rules;
+namespace Redot\Validator\Rules;
 
 use InvalidArgumentException;
 use Traversable;
-use Validator\AbstractRule;
+use Redot\Validator\AbstractRule;
 
 class EachRule extends AbstractRule
 {

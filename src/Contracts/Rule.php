@@ -1,6 +1,6 @@
 <?php
 
-namespace Validator\Contracts;
+namespace Redot\Validator\Contracts;
 
 interface Rule
 {

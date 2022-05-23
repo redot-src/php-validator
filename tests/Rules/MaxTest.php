@@ -1,6 +1,6 @@
 <?php
 
-use Validator\Validator;
+use Redot\Validator\Validator;
 
 test('Max: valid case (number)', function () {
     expect(Validator::init(5)->max(6)->validate())->toBe(true);

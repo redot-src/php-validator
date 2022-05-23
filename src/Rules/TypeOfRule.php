@@ -1,9 +1,9 @@
 <?php
 
-namespace Validator\Rules;
+namespace Redot\Validator\Rules;
 
 use InvalidArgumentException;
-use Validator\AbstractRule;
+use Redot\Validator\AbstractRule;
 
 class TypeOfRule extends AbstractRule
 {

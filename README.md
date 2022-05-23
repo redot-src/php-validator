@@ -19,7 +19,7 @@ composer test
 After registering the rules that you want to use, you can use the validator like this:
 
 ```php
-use Validator\Validator;
+use Redot\Validator\Validator;
 
 /* Instantiate a new validator */
 $validator = new Validator($email);
@@ -55,7 +55,7 @@ if (count($errors)) {
 The validator came without any registered rules by default. You can add them by using the `Validator::addRule()` method.
 
 ```php
-use Validator\Rules\RequiredRule;
+use Redot\Validator\Rules\RequiredRule;
 
 Validator::addRule(RequiredRule::class);
 ```

@@ -1,6 +1,6 @@
 <?php
 
-use Validator\Validator;
+use Redot\Validator\Validator;
 
 test('Email: valid case', function () {
     expect(Validator::init('test@vendor.com')->email()->validate())->toBe(true);
