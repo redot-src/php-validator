@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-composer require abdelrhmansaid/validator
+composer require redot/validator
 ```
 
 ## Testing
