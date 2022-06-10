@@ -30,6 +30,7 @@ class BetweenRule extends AbstractRule
      */
     public function validate(mixed $value, ...$params): bool
     {
-        return $value >= $params[0] && $value <= $params[1];
+        [$min, $max] = $params;
+        return $value >= $min && $value <= $max;
     }
 }

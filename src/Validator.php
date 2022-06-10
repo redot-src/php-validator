@@ -246,7 +246,8 @@ class Validator implements ValidatorContract
     {
         /* @phpstan-ignore-next-line */
         return preg_replace_callback('/{(\d+)}/', function ($matches) use ($params) {
-            $value = $params[$matches[1]];
+            [, $key] = $matches;
+            $value = $params[$key];
             if (Utils::canBeString($value)) return $value;
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION);
         }, $message) ?: '';

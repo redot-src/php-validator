@@ -37,6 +37,7 @@ class EqualRule extends AbstractRule
             throw new ArgumentCountError('Equal rule requires at least one parameter.');
         }
 
-        return $value == $params[0];
+        [$equal] = $params;
+        return $value === $equal;
     }
 }

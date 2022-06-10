@@ -37,14 +37,15 @@ class MinRule extends AbstractRule
             throw new ArgumentCountError('Min rule requires at least one parameter.');
         }
 
+        [$min] = $params;
         if (is_string($value)) {
-            return strlen($value) >= $params[0];
+            return strlen($value) >= $min;
         }
 
         if (is_array($value)) {
-            return count($value) >= $params[0];
+            return count($value) >= $min;
         }
 
-        return $value >= $params[0];
+        return $value >= $min;
     }
 }

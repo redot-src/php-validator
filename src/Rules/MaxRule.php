@@ -37,14 +37,16 @@ class MaxRule extends AbstractRule
             throw new ArgumentCountError('Max rule requires at least one parameter.');
         }
 
+        [$max] = $params;
+
         if (is_string($value)) {
-            return strlen($value) <= $params[0];
+            return strlen($value) <= $max;
         }
 
         if (is_array($value)) {
-            return count($value) <= $params[0];
+            return count($value) <= $max;
         }
 
-        return $value <= $params[0];
+        return $value <= $max;
     }
 }
