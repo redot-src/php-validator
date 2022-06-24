@@ -113,26 +113,12 @@ class Validator implements ValidatorContract
      */
     public static function loadDefaultRules(): void
     {
-        $baseRules = [
-            Rules\AlphaRule::class,
-            Rules\BetweenRule::class,
-            Rules\ContainsRule::class,
-            Rules\DoesntContainRule::class,
-            Rules\EachRule::class,
-            Rules\EmailRule::class,
-            Rules\EqualRule::class,
-            Rules\IsDateRule::class,
-            Rules\MaxRule::class,
-            Rules\MinRule::class,
-            Rules\PatternRule::class,
-            Rules\RequiredRule::class,
-            Rules\TypeOfRule::class,
-        ];
+        $rules = glob(__DIR__ . '/Rules/*.php') ?: [];
 
-        foreach ($baseRules as $rule) {
-            if (!Validator::hasRule($rule)) {
-                Validator::addRule($rule);
-            }
+        foreach ($rules as $rule) {
+            $rule = basename($rule, '.php');
+            $rule = __NAMESPACE__ . '\Rules\\' . $rule;
+            Validator::addRule($rule, true);
         }
     }
 
