@@ -1,6 +1,8 @@
 # PHP Validator
 
-*Validation framework lets you configure, rather than code, your validation logic.*
+[![tests](https://github.com/redot-src/php-validator/actions/workflows/php.yml/badge.svg)](https://github.com/redot-src/php-validator/actions/workflows/php.yml)
+
+*Validation library lets you configure, rather than code, your validation logic.*
 
 ## Installation
 

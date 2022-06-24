@@ -1,4 +1,4 @@
-name: Run PHP-Validator tests
+name: tests
 
 on:
   push:
