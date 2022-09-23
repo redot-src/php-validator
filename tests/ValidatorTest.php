@@ -66,3 +66,8 @@ it('can change the default error message', function () {
     expect(Validator::init(2)->equalsOne()->getErrors())
         ->toBe(['equalsOne' => 'test2']);
 });
+
+it('can validate a rule statically', function () {
+    expect(Validator::equalsOne(1))->toBe(true);
+    expect(Validator::equalsOne(2))->toBe(false);
+});

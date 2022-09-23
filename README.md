@@ -52,6 +52,12 @@ if (count($errors)) {
 
 *Note that multiple validations return an array of failures rather than a Validator instance.*
 
+Btw, you can validate values statically:
+
+```php
+$isEmail = Validator::email('admin@example.com'); // true
+```
+
 ## Registering rules
 
 The validator came without any registered rules by default. You can add them by using the `Validator::addRule()` method.

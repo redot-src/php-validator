@@ -314,4 +314,19 @@ class Validator implements ValidatorContract
 
         return $this;
     }
+
+    /**
+     * Call static validation rule.
+     *
+     * @param string $name
+     * @param array<int, mixed> $arguments
+     * @return bool
+     *
+     * @throws RuleNotFoundException
+     */
+    public static function __callStatic(string $name, array $arguments = []): bool
+    {
+        $rule = static::getRule($name);
+        return $rule->validate(...$arguments);
+    }
 }
