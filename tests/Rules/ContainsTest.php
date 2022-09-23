@@ -3,25 +3,25 @@
 use Redot\Validator\Validator;
 
 test('Contains: valid case (string)', function () {
-    expect(Validator::init('abc')->contains('a', 'b')->validate())->toBe(true);
+    expect(Validator::contains('abc', 'a', 'b'))->toBe(true);
 });
 
 test('Contains: invalid case (string)', function () {
-    expect(Validator::init('abc')->contains('d')->validate())->toBe(false);
+    expect(Validator::contains('abc', 'd'))->toBe(false);
 });
 
 test('Contains: valid case (array)', function () {
-    expect(Validator::init(['a'])->contains('a')->validate())->toBe(true);
+    expect(Validator::contains(['a'], 'a'))->toBe(true);
 });
 
 test('Contains: invalid case (array)', function () {
-    expect(Validator::init(['a'])->contains('d')->validate())->toBe(false);
+    expect(Validator::contains(['a'], 'd'))->toBe(false);
 });
 
 test('Contains: valid case (object)', function () {
-    expect(Validator::init((object) ['a' => 'a'])->contains('a')->validate())->toBe(true);
+    expect(Validator::contains((object) ['a' => 'a'], 'a'))->toBe(true);
 });
 
 test('Contains: invalid case (object)', function () {
-    expect(Validator::init((object) ['a' => 'a'])->contains('d')->validate())->toBe(false);
+    expect(Validator::contains((object) ['a' => 'a'], 'd'))->toBe(false);
 });

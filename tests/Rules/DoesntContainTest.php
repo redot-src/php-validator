@@ -3,25 +3,25 @@
 use Redot\Validator\Validator;
 
 test('DoesntContain: valid case (string)', function () {
-    expect(Validator::init('abc')->doesntContain('d')->validate())->toBe(true);
+    expect(Validator::doesntContain('abc', 'd'))->toBe(true);
 });
 
 test('DoesntContain: invalid case (string)', function () {
-    expect(Validator::init('abc')->doesntContain('a', 'b')->validate())->toBe(false);
+    expect(Validator::doesntContain('abc', 'a', 'b'))->toBe(false);
 });
 
 test('DoesntContain: valid case (array)', function () {
-    expect(Validator::init(['a'])->doesntContain('d')->validate())->toBe(true);
+    expect(Validator::doesntContain(['a'], 'd'))->toBe(true);
 });
 
 test('DoesntContain: invalid case (array)', function () {
-    expect(Validator::init(['a'])->doesntContain('a')->validate())->toBe(false);
+    expect(Validator::doesntContain(['a'], 'a'))->toBe(false);
 });
 
 test('DoesntContain: valid case (object)', function () {
-    expect(Validator::init((object) ['a' => 'a'])->doesntContain('d')->validate())->toBe(true);
+    expect(Validator::doesntContain((object) ['a' => 'a'], 'd'))->toBe(true);
 });
 
 test('DoesntContain: invalid case (object)', function () {
-    expect(Validator::init((object) ['a' => 'a'])->doesntContain('a')->validate())->toBe(false);
+    expect(Validator::doesntContain((object) ['a' => 'a'], 'a'))->toBe(false);
 });

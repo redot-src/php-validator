@@ -3,9 +3,9 @@
 use Redot\Validator\Validator;
 
 test('Pattern: valid case', function () {
-    expect(Validator::init('test')->pattern('/^[a-z]+$/')->validate())->toBe(true);
+    expect(Validator::pattern('test', '/^[a-z]+$/'))->toBe(true);
 });
 
 test('Pattern: invalid case', function () {
-    expect(Validator::init('TEST')->pattern('/^[a-z]+$/')->validate())->toBe(false);
+    expect(Validator::pattern('TEST', '/^[a-z]+$/'))->toBe(false);
 });

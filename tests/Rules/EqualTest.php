@@ -3,9 +3,9 @@
 use Redot\Validator\Validator;
 
 test('Equal: valid case', function () {
-    expect(Validator::init('test')->equal('test')->validate())->toBe(true);
+    expect(Validator::equal('test', 'test'))->toBe(true);
 });
 
 test('Equal: invalid case', function () {
-    expect(Validator::init('test')->equal('test2')->validate())->toBe(false);
+    expect(Validator::equal('test', 'test2'))->toBe(false);
 });
