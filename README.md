@@ -121,7 +121,7 @@ If you want to customize the error messages, you can use the `Validator::setMess
 ```php
 Validator::setMessages([
     'required' => 'The value is required.',
-    'email' => 'The value is not a valid email.'
+    'email' => 'The value is not a valid email.',
     'max' => 'The value should be less than or equal to {0}.',
 ]);
 ```
