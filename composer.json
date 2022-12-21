@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=8.0"
+        "php": "^8.0"
     },
     "require-dev": {
         "jetbrains/phpstorm-attributes": "^1.0",
@@ -21,9 +21,6 @@
         "phpstan/phpstan": "^1.6"
     },
     "config": {
-        "lock": false,
-        "sort-packages": true,
-        "optimize-autoloader": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
