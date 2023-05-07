@@ -74,22 +74,23 @@ Also you can load the default rules by using the `Validator::loadDefaultRules()`
 Validator::loadDefaultRules();
 ```
 
-## Pre-defined rules
+Loading the default rules will register the following rules:
 
-Here's a list of pre-defined rules:
-- `Alpha` => Check if the value is alphabetic
-- `Between` => Check if the value is between two values
-- `Contains` => Check if the value contains another value
-- `DoesntContain` => Check if the value doesn't contain another value
-- `Each` => Check if each value is valid
-- `Equal` => Check if the value is equal to another value
-- `Email` => Check if the value is a valid email
-- `IsDate` => Check if the value is a valid date
-- `Max` => Check if the value is less than or equal to another value
-- `Min` => Check if the value is greater than or equal to another value
-- `Pattern` => Check if the value matches a regular expression
-- `Required` => Check if the value is not empty
-- `TypeOf` => Check if the value is a type of certain type
+| Rule | Description | Parameters |
+| --- | --- | --- |
+| `alpha` | The value must contain only alphabetic characters. | - |
+| `between` | The value must be between the given min and max. | `min`, `max` |
+| `contains` | The value must contain the given string. | `string\|array\|object` |
+| `doesntContain` | The value must not contain the given string. | `string\|array\|object` |
+| `each` | The value must be an array and each item must pass the given rule. | `rule` |
+| `email` | The value must be a valid email address. | - |
+| `equal` | The value must be equal to the given value. | `value` |
+| `isDate` | The value must be a valid date. | - |
+| `max` | The value must be less than or equal to the given value. | `value` |
+| `min` | The value must be greater than or equal to the given value. | `value` |
+| `pattern` | The value must match the given pattern. | `pattern` |
+| `required` | The value must be present. | - |
+| `typeOf` | The value must be of the given type. | `type` |
 
 *You can submit a pull request to add a new rule.*
 
