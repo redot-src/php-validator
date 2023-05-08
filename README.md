@@ -79,18 +79,18 @@ Loading the default rules will register the following rules:
 | Rule | Description | Parameters |
 | --- | --- | --- |
 | `alpha` | The value must contain only alphabetic characters. | - |
-| `between` | The value must be between the given min and max. | `min`, `max` |
-| `contains` | The value must contain the given string. | `string\|array\|object` |
-| `doesntContain` | The value must not contain the given string. | `string\|array\|object` |
-| `each` | The value must be an array and each item must pass the given rule. | `rule` |
+| `between` | The value must be between the given min and max. | min: `int`, max: `int` |
+| `contains` | The value must contain all the given values. | `mixed[]` |
+| `doesntContain` | The value must not contain all the given values. | `mixed[]` |
+| `each` | The value must be an array and each item must pass the given rule. | `callable` |
 | `email` | The value must be a valid email address. | - |
-| `equal` | The value must be equal to the given value. | `value` |
+| `equal` | The value must be equal to the given value. | `mixed` |
 | `isDate` | The value must be a valid date. | - |
-| `max` | The value must be less than or equal to the given value. | `value` |
-| `min` | The value must be greater than or equal to the given value. | `value` |
-| `pattern` | The value must match the given pattern. | `pattern` |
+| `max` | The value must be less than or equal to the given value. | `int` |
+| `min` | The value must be greater than or equal to the given value. | `int` |
+| `pattern` | The value must match the given pattern. | `string` |
 | `required` | The value must be present. | - |
-| `typeOf` | The value must be of the given type. | `type` |
+| `typeOf` | The value must be of the given type. | `string` |
 
 *You can submit a pull request to add a new rule.*
 

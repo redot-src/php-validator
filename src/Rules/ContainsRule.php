@@ -38,19 +38,19 @@ class ContainsRule extends AbstractRule
         }
 
         foreach ($params as $param) {
-            if (is_string($value)) {
-                return str_contains($value, strval($param));
+            if (is_string($value) && !str_contains($value, strval($param))) {
+                return false;
             }
 
-            if (is_array($value)) {
-                return in_array($param, $value);
+            if (is_array($value) && !in_array($param, $value)) {
+                return false;
             }
 
-            if (is_object($value)) {
-                return property_exists($value, strval($param));
+            if (is_object($value) && !property_exists($value, strval($param))) {
+                return false;
             }
-
-            return false;
         }
+
+        return true;
     }
 }
