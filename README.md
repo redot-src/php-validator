@@ -1,6 +1,6 @@
 # PHP Validator
 
-[![tests](https://github.com/AbdelrhmanSaid/php-validator/actions/workflows/php.yml/badge.svg)](https://github.com/AbdelrhmanSaid/php-validator/actions/workflows/php.yml)
+[![tests](https://github.com/redot-src/php-validator/actions/workflows/php.yml/badge.svg)](https://github.com/redot-src/php-validator/actions/workflows/php.yml)
 
 *Validation library lets you configure, rather than code, your validation logic.*
 
