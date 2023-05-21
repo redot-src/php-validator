@@ -18,12 +18,14 @@ use Redot\Validator\Errors\{
  * @method static Validator each(callable $callback)
  * @method static Validator email()
  * @method static Validator equal(mixed $value)
- * @method static Validator isDate()
+ * @method static Validator date()
  * @method static Validator max(int $max)
  * @method static Validator min(int $min)
  * @method static Validator pattern(string $pattern)
  * @method static Validator required()
- * @method static Validator typeOf(string $type)
+ * @method static Validator string()
+ * @method static Validator number()
+ * @method static Validator array()
  */
 class Validator implements ValidatorContract
 {
@@ -88,7 +90,6 @@ class Validator implements ValidatorContract
         $result = [];
 
         foreach ($entries as $key => $rules) {
-            $rules = explode('|', $rules);
             $errors = static::validateMultipleRules($values[$key] ?? null, $rules);
 
             if (count($errors)) {
@@ -103,19 +104,37 @@ class Validator implements ValidatorContract
      * Validate multiple rules.
      *
      * @param mixed $value
-     * @param array<int, string> $rules
+     * @param string $rules
      * @return array<string, string>
      */
-    protected static function validateMultipleRules(mixed $value, array $rules): array
+    protected static function validateMultipleRules(mixed $value, string $rules): array
     {
         $validator = new static($value);
 
-        foreach ($rules as $rule) {
-            $rule = explode(':', $rule);
-            $validator->{$rule[0]}(...explode(',', $rule[1] ?? ''));
+        foreach (explode('|', $rules) as $rule) {
+            [$name, $parameters] = static::parseRule($rule);
+            $validator->$name(...$parameters);
         }
 
         return $validator->getErrors();
+    }
+
+    /**
+     * Parse rule.
+     *
+     * @param string $rule
+     * @return array<int, string|array<int, string>>
+     */
+    protected static function parseRule(string $rule): array
+    {
+        $parameters = [];
+
+        if (str_contains($rule, ':')) {
+            [$rule, $parameters] = explode(':', $rule, 2);
+            $parameters = explode(',', $parameters);
+        }
+
+        return [$rule, $parameters];
     }
 
     /**

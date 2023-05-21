@@ -56,7 +56,7 @@ it('throw an exception if rule is not registered', function () {
         ->toThrow(RuleNotFoundException::class);
 });
 
-it('can validate multiple values', function () {
+it('can validate multiple rules (flat)', function () {
     $entries = ['email' => 'test@vendor.com'];
     $validations = ['email' => 'required|email|min:5|max:255'];
 

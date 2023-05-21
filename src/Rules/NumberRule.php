@@ -4,12 +4,12 @@ namespace Redot\Validator\Rules;
 
 use Redot\Validator\AbstractRule;
 
-class IsDateRule extends AbstractRule
+class NumberRule extends AbstractRule
 {
     /**
      * {@inheritdoc}
      */
-    protected string $message = 'Value should be a valid date.';
+    protected string $message = 'Value is not a valid number.';
 
     /**
      * Rule name.
@@ -18,18 +18,18 @@ class IsDateRule extends AbstractRule
      */
     public function getName(): string
     {
-        return 'isDate';
+        return 'number';
     }
 
     /**
      * Check if rule is valid.
      *
-     * @param string $value
+     * @param mixed $value
      * @param mixed ...$params
      * @return bool
      */
     public function validate(mixed $value, ...$params): bool
     {
-        return strtotime($value) !== false;
+        return is_numeric($value);
     }
 }
