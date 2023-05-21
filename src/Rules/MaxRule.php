@@ -14,7 +14,7 @@ class MaxRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string

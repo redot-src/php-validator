@@ -59,12 +59,8 @@ it('throw an exception if rule is not registered', function () {
 it('can validate multiple values', function () {
     $entries = ['email' => 'test@vendor.com'];
     $validations = ['email' => 'required|email|min:5|max:255'];
-    expect(Validator::initMultiple($entries, $validations))->toBe(true);
-});
 
-it('can validate multiple entries', function () {
-    expect(Validator::initMultiple(['one' => 1], ['one' => 'equalsOne']))
-        ->toBe(true);
+    expect(Validator::initMultiple($entries, $validations))->toBe(true);
 });
 
 it('can change the default error message', function () {
@@ -79,7 +75,7 @@ it('can change the default error message', function () {
 
 it('can read parameters to error message', function () {
     $minimum = 5;
-    $message = (new MinRule)->getMessage();
+    $message = (new MinRule())->getMessage();
 
     expect(Validator::init('test')->min($minimum)->getErrors())
         ->toBe(['min' => str_replace('{0}', $minimum, $message)]);

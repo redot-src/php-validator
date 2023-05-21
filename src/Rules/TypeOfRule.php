@@ -7,14 +7,14 @@ use Redot\Validator\AbstractRule;
 
 class TypeOfRule extends AbstractRule
 {
-    const TYPE_INTEGER = 'integer';
-    const TYPE_DOUBLE = 'double';
-    const TYPE_STRING = 'string';
-    const TYPE_BOOLEAN = 'boolean';
-    const TYPE_ARRAY = 'array';
-    const TYPE_OBJECT = 'object';
-    const TYPE_RESOURCE = 'resource';
-    const TYPE_NULL = 'null';
+    public const TYPE_INTEGER = 'integer';
+    public const TYPE_DOUBLE = 'double';
+    public const TYPE_STRING = 'string';
+    public const TYPE_BOOLEAN = 'boolean';
+    public const TYPE_ARRAY = 'array';
+    public const TYPE_OBJECT = 'object';
+    public const TYPE_RESOURCE = 'resource';
+    public const TYPE_NULL = 'null';
 
     /**
      * {@inheritDoc}
@@ -23,7 +23,7 @@ class TypeOfRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string

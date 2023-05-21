@@ -44,7 +44,7 @@ test('TypeOf: invalid case (array)', function () {
 });
 
 test('TypeOf: valid case (object)', function () {
-    expect(Validator::typeOf(new stdClass, TypeOfRule::TYPE_OBJECT))->toBe(true);
+    expect(Validator::typeOf(new stdClass(), TypeOfRule::TYPE_OBJECT))->toBe(true);
 });
 
 test('TypeOf: invalid case (object)', function () {

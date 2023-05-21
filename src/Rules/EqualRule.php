@@ -14,7 +14,7 @@ class EqualRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -24,7 +24,7 @@ class EqualRule extends AbstractRule
 
     /**
      * Check if rule is valid.
-     * 
+     *
      * @param mixed $value
      * @param mixed ...$params
      * @return bool

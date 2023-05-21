@@ -145,7 +145,7 @@ class Validator implements ValidatorContract
      */
     public static function addRule(string $rule, bool $override = false): void
     {
-        $obj = new $rule;
+        $obj = new $rule();
 
         if (!$obj instanceof AbstractRule) {
             throw new InvalidRuleException("Rule [$rule] must be an instance of AbstractRule.");
@@ -234,7 +234,11 @@ class Validator implements ValidatorContract
         return preg_replace_callback('/{(\d+)}/', function ($matches) use ($params) {
             [, $key] = $matches;
             $value = $params[$key];
-            if (Utils::canBeString($value)) return $value;
+
+            if (Utils::canBeString($value)) {
+                return $value;
+            }
+
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION);
         }, $message) ?: '';
     }

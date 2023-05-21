@@ -13,7 +13,7 @@ class JsonRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string
@@ -28,7 +28,7 @@ class JsonRule extends AbstractRule
      * @param mixed ...$params
      * @return bool
      */
-    public function validate(mixed $value,  ...$params): bool
+    public function validate(mixed $value, ...$params): bool
     {
         return is_string($value) && is_array(json_decode($value, true)) && (json_last_error() == JSON_ERROR_NONE);
     }

@@ -14,7 +14,7 @@ class DoesntContainRule extends AbstractRule
 
     /**
      * Rule name.
-     * 
+     *
      * @return string
      */
     public function getName(): string
