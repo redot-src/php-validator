@@ -38,6 +38,7 @@ class DoesntContainRule extends AbstractRule
         }
 
         foreach ($params as $param) {
+            /* @phpstan-ignore-next-line */
             if (is_string($value) && str_contains($value, strval($param))) {
                 return false;
             }
@@ -46,6 +47,7 @@ class DoesntContainRule extends AbstractRule
                 return false;
             }
 
+            /* @phpstan-ignore-next-line */
             if (is_object($value) && property_exists($value, strval($param))) {
                 return false;
             }
