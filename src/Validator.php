@@ -90,7 +90,8 @@ class Validator implements ValidatorContract
         $result = [];
 
         foreach ($entries as $key => $rules) {
-            $errors = static::validateMultipleRules($values[$key] ?? null, $rules);
+            $value = Utils::array_get($values, $key);
+            $errors = static::validateMultipleRules($value, $rules);
 
             if (count($errors)) {
                 $result[$key] = $errors;

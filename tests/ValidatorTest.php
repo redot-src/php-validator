@@ -63,6 +63,22 @@ it('can validate multiple rules (flat)', function () {
     expect(Validator::initMultiple($entries, $validations))->toBe(true);
 });
 
+it('can validate a nested rules (object)', function () {
+    $entries = [
+        'user' => [
+            'name' => 'John Doe',
+            'email' => 'email@vendor.com',
+        ],
+    ];
+
+    $validations = [
+        'user.name' => 'required|min:5|max:255',
+        'user.email' => 'required|email|min:5|max:255',
+    ];
+
+    expect(Validator::initMultiple($entries, $validations))->toBe(true);
+});
+
 it('can change the default error message', function () {
     Validator::setMessages([EqualsOne::class => 'test']);
     expect(Validator::init(2)->equalsOne()->getErrors())
