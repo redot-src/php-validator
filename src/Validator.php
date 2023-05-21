@@ -83,27 +83,39 @@ class Validator implements ValidatorContract
      * @param array<string, string> $entries
      * @return array<string, array<string, string>>|true
      */
-    public static function initMultiple(array $values, array $entries): array|bool
+    public static function initMultiple(array $values, array $entries): array|true
     {
-        $errors = [];
-        $validator = new static();
+        $result = [];
 
-        foreach ($entries as $key => $entry) {
-            $validator->setValue($values[$key]);
-            $rules = explode('|', $entry);
+        foreach ($entries as $key => $rules) {
+            $rules = explode('|', $rules);
+            $errors = static::validateMultipleRules($values[$key] ?? null, $rules);
 
-            foreach ($rules as $rule) {
-                $rule = explode(':', $rule);
-                $validator->{$rule[0]}(...explode(',', $rule[1] ?? ''));
-            }
-
-            if (!$validator->validate()) {
-                $errors[$key] = $validator->getErrors();
-                $validator->clearErrors();
+            if (count($errors)) {
+                $result[$key] = $errors;
             }
         }
 
-        return $errors ?: true;
+        return count($result) ? $result : true;
+    }
+
+    /**
+     * Validate multiple rules.
+     *
+     * @param mixed $value
+     * @param array<int, string> $rules
+     * @return array<string, string>
+     */
+    protected static function validateMultipleRules(mixed $value, array $rules): array
+    {
+        $validator = new static($value);
+
+        foreach ($rules as $rule) {
+            $rule = explode(':', $rule);
+            $validator->{$rule[0]}(...explode(',', $rule[1] ?? ''));
+        }
+
+        return $validator->getErrors();
     }
 
     /**
