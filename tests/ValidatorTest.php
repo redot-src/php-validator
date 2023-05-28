@@ -79,6 +79,57 @@ it('can validate a nested rules (object)', function () {
     expect(Validator::initMultiple($entries, $validations))->toBe(true);
 });
 
+it('can validate a nested rules (array)', function () {
+    $entries = [
+        'products' => [
+            ['name' => 'Product 1', 'price' => 100],
+            ['name' => 'Product 2', 'price' => 200],
+        ],
+    ];
+
+    $validations = [
+        'products.*.name' => 'required|min:5|max:255',
+        'products.*.price' => 'required|min:1',
+    ];
+
+    expect(Validator::initMultiple($entries, $validations))->toBe(true);
+});
+
+it('can validate a mixed nested rules', function () {
+    $entries = [
+        'products' => [
+            [
+                'name' => [
+                    'locales' => [
+                        'en' => 'iPhone 11 Pro',
+                        'ar' => 'آيفون 11 برو'
+                    ],
+                    'default' => 'iPhone 11 Pro'
+                ],
+                'price' => 100,
+            ],
+            [
+                'name' => [
+                    'locales' => [
+                        'en' => 'Samsung Galaxy S10',
+                        'ar' => 'سامسونج جالاكسي S10'
+                    ],
+                    'default' => 'Samsung Galaxy S10'
+                ],
+                'price' => 200,
+            ],
+        ],
+    ];
+
+    $rules = [
+        'products.*.name.locales.*' => 'required|string',
+        'products.*.name.default' => 'required|string',
+        'products.*.price' => 'required|numeric',
+    ];
+
+    expect(Validator::initMultiple($entries, $rules))->toBe(true);
+});
+
 it('can change the default error message', function () {
     Validator::setMessages([EqualsOne::class => 'test']);
     expect(Validator::init(2)->equalsOne()->getErrors())
