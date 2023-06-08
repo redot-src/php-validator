@@ -124,7 +124,7 @@ it('can validate a mixed nested rules', function () {
     $rules = [
         'products.*.name.locales.*' => 'required|string',
         'products.*.name.default' => 'required|string',
-        'products.*.price' => 'required|numeric',
+        'products.*.price' => 'required|number',
     ];
 
     expect(Validator::initMultiple($entries, $rules))->toBe(true);

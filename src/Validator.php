@@ -4,11 +4,9 @@ namespace Redot\Validator;
 
 use JetBrains\PhpStorm\Pure;
 use Redot\Validator\Contracts\Validator as ValidatorContract;
-use Redot\Validator\Errors\{
-    InvalidRuleException,
-    RuleNotFoundException,
-    DuplicateRuleException,
-};
+use Redot\Validator\Errors\InvalidRuleException;
+use Redot\Validator\Errors\RuleNotFoundException;
+use Redot\Validator\Errors\DuplicateRuleException;
 
 /**
  * @method static Validator alpha()
