@@ -4,11 +4,9 @@ namespace Redot\Validator;
 
 use JetBrains\PhpStorm\Pure;
 use Redot\Validator\Contracts\Validator as ValidatorContract;
-use Redot\Validator\Errors\{
-    InvalidRuleException,
-    RuleNotFoundException,
-    DuplicateRuleException,
-};
+use Redot\Validator\Errors\InvalidRuleException;
+use Redot\Validator\Errors\RuleNotFoundException;
+use Redot\Validator\Errors\DuplicateRuleException;
 
 /**
  * @method static Validator alpha()
@@ -90,7 +88,8 @@ class Validator implements ValidatorContract
         $result = [];
 
         foreach ($entries as $key => $rules) {
-            $errors = static::validateMultipleRules($values[$key] ?? null, $rules);
+            $value = Utils::array_get($values, $key);
+            $errors = static::validateMultipleRules($value, $rules);
 
             if (count($errors)) {
                 $result[$key] = $errors;

@@ -13,13 +13,13 @@
         }
     },
     "require": {
-        "php": "^8.1",
-        "laravel/pint": "^1.10"
+        "php": "^8.1"
     },
     "require-dev": {
         "jetbrains/phpstorm-attributes": "^1.0",
         "pestphp/pest": "^1.21",
-        "phpstan/phpstan": "^1.6"
+        "phpstan/phpstan": "^1.6",
+        "laravel/pint": "^1.10"
     },
     "config": {
         "allow-plugins": {
