@@ -25,7 +25,7 @@ class Utils
      * @param mixed $default
      * @return mixed
      */
-    public static function array_get(array $array, string $key, mixed $default = null): mixed
+    public static function getValueFromDottedAssoc(array $array, string $key, mixed $default = null): mixed
     {
         if (array_key_exists($key, $array)) {
             return $array[$key];
